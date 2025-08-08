@@ -1,0 +1,50 @@
+[
+  {
+    "description": "An iconic ancient amphitheatre, the Colosseum is a symbol of Imperial Rome and one of the world's most recognizable landmarks, known for its gladiatorial contests and public spectacles.",
+    "latitude": 41.8902,
+    "longitude": 12.4922,
+    "name": "Colosseum",
+    "type": "Monument",
+    "symbol": "house"
+  },
+  {
+    "description": "The famous bell tower of the Pisa Cathedral, known worldwide for its unintended tilt, offers a unique photo opportunity and a chance to climb to the top for panoramic views of Pisa.",
+    "latitude": 43.7229,
+    "longitude": 10.3966,
+    "name": "Leaning Tower of Pisa",
+    "type": "Monument",
+    "symbol": "house"
+  },
+  {
+    "description": "The largest church in the world and a central site of Catholicism, St. Peter's Basilica is an architectural masterpiece featuring works by Michelangelo and Bernini, serving as a significant pilgrimage destination.",
+    "latitude": 41.9022,
+    "longitude": 12.4578,
+    "name": "St. Peter's Basilica",
+    "type": "Religious Site",
+    "symbol": "house"
+  },
+  {
+    "description": "Housed in a historic building in Florence, the Uffizi Gallery is one of the oldest and most famous art museums in the world, renowned for its unparalleled collection of Renaissance masterpieces.",
+    "latitude": 43.7687,
+    "longitude": 11.2558,
+    "name": "Uffizi Gallery",
+    "type": "Museum",
+    "symbol": "house"
+  },
+  {
+    "description": "The oldest and most iconic bridge spanning the Grand Canal in Venice, the Rialto Bridge is a bustling landmark offering picturesque views of the city's waterways and gondolas.",
+    "latitude": 45.438,
+    "longitude": 12.3358,
+    "name": "Rialto Bridge",
+    "type": "Bridge",
+    "symbol": "house"
+  },
+  {
+    "description": "An ancient Roman city preserved under volcanic ash from Mount Vesuvius, Pompeii offers a remarkable insight into daily life over two millennia ago, with remarkably intact buildings, frescoes, and artifacts.",
+    "latitude": 40.7497,
+    "longitude": 14.4988,
+    "name": "Pompeii Archaeological Park",
+    "type": "Archaeological Site",
+    "symbol": "house"
+  }
+]

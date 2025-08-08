@@ -6,6 +6,20 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		0815A1762E30A4BA00BD3417 /* FirebaseAI in Frameworks */ = {isa = PBXBuildFile; productRef = 0815A1752E30A4BA00BD3417 /* FirebaseAI */; };
+		0815A1782E30A4BA00BD3417 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 0815A1772E30A4BA00BD3417 /* FirebaseAnalytics */; };
+		0815A17A2E30A4BA00BD3417 /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = 0815A1792E30A4BA00BD3417 /* FirebaseAppCheck */; };
+		0815A17C2E30A54000BD3417 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 0815A17B2E30A54000BD3417 /* FirebaseCore */; };
+		08D7805F2E40DBCE0039B5D1 /* TravelPlannerAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 08D7805E2E40DBCE0039B5D1 /* TravelPlannerAuth */; };
+		08D780612E43896E0039B5D1 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 08D780602E43896E0039B5D1 /* FirebaseAuth */; };
+		08F01ACC2E44E86400CED5EF /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 08F01ACB2E44E86400CED5EF /* GoogleSignIn */; };
+		08F01ACE2E44E86400CED5EF /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 08F01ACD2E44E86400CED5EF /* GoogleSignInSwift */; };
+		08F01AD42E450D9500CED5EF /* TravelPlannerNetwork in Frameworks */ = {isa = PBXBuildFile; productRef = 08F01AD32E450D9500CED5EF /* TravelPlannerNetwork */; };
+		08F01AD72E45116600CED5EF /* AppResources in Frameworks */ = {isa = PBXBuildFile; productRef = 08F01AD62E45116600CED5EF /* AppResources */; };
+		08F01ADD2E45171000CED5EF /* AIPlanner in Frameworks */ = {isa = PBXBuildFile; productRef = 08F01ADC2E45171000CED5EF /* AIPlanner */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		0815A13C2E3053D900BD3417 /* TravelPlanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TravelPlanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -15,6 +29,10 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
+				Modules/AIPlanner,
+				Modules/AppResources,
+				Modules/TravelPlannerAuth,
+				Modules/TravelPlannerNetwork,
 			);
 			target = 0815A13B2E3053D900BD3417 /* TravelPlanner */;
 		};
@@ -36,6 +54,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0815A1782E30A4BA00BD3417 /* FirebaseAnalytics in Frameworks */,
+				08D780612E43896E0039B5D1 /* FirebaseAuth in Frameworks */,
+				08F01ADD2E45171000CED5EF /* AIPlanner in Frameworks */,
+				08D7805F2E40DBCE0039B5D1 /* TravelPlannerAuth in Frameworks */,
+				08F01ACE2E44E86400CED5EF /* GoogleSignInSwift in Frameworks */,
+				0815A17A2E30A4BA00BD3417 /* FirebaseAppCheck in Frameworks */,
+				0815A17C2E30A54000BD3417 /* FirebaseCore in Frameworks */,
+				0815A1762E30A4BA00BD3417 /* FirebaseAI in Frameworks */,
+				08F01ACC2E44E86400CED5EF /* GoogleSignIn in Frameworks */,
+				08F01AD72E45116600CED5EF /* AppResources in Frameworks */,
+				08F01AD42E450D9500CED5EF /* TravelPlannerNetwork in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -46,6 +75,7 @@
 			isa = PBXGroup;
 			children = (
 				0815A13E2E3053D900BD3417 /* TravelPlanner */,
+				08D7805D2E40DBCE0039B5D1 /* Frameworks */,
 				0815A13D2E3053D900BD3417 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -56,6 +86,13 @@
 				0815A13C2E3053D900BD3417 /* TravelPlanner.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		08D7805D2E40DBCE0039B5D1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -78,6 +115,17 @@
 			);
 			name = TravelPlanner;
 			packageProductDependencies = (
+				0815A1752E30A4BA00BD3417 /* FirebaseAI */,
+				0815A1772E30A4BA00BD3417 /* FirebaseAnalytics */,
+				0815A1792E30A4BA00BD3417 /* FirebaseAppCheck */,
+				0815A17B2E30A54000BD3417 /* FirebaseCore */,
+				08D7805E2E40DBCE0039B5D1 /* TravelPlannerAuth */,
+				08D780602E43896E0039B5D1 /* FirebaseAuth */,
+				08F01ACB2E44E86400CED5EF /* GoogleSignIn */,
+				08F01ACD2E44E86400CED5EF /* GoogleSignInSwift */,
+				08F01AD32E450D9500CED5EF /* TravelPlannerNetwork */,
+				08F01AD62E45116600CED5EF /* AppResources */,
+				08F01ADC2E45171000CED5EF /* AIPlanner */,
 			);
 			productName = TravelPlanner;
 			productReference = 0815A13C2E3053D900BD3417 /* TravelPlanner.app */;
@@ -107,6 +155,10 @@
 			);
 			mainGroup = 0815A1332E3053D900BD3417;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				0815A1742E30A4BA00BD3417 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				08F01ACA2E44E86300CED5EF /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 0815A13D2E3053D900BD3417 /* Products */;
 			projectDirPath = "";
@@ -150,9 +202,9 @@
 				INFOPLIST_FILE = TravelPlanner/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -178,9 +230,9 @@
 				INFOPLIST_FILE = TravelPlanner/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -337,6 +389,79 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		0815A1742E30A4BA00BD3417 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.0.0;
+			};
+		};
+		08F01ACA2E44E86300CED5EF /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0815A1752E30A4BA00BD3417 /* FirebaseAI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0815A1742E30A4BA00BD3417 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAI;
+		};
+		0815A1772E30A4BA00BD3417 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0815A1742E30A4BA00BD3417 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		0815A1792E30A4BA00BD3417 /* FirebaseAppCheck */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0815A1742E30A4BA00BD3417 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAppCheck;
+		};
+		0815A17B2E30A54000BD3417 /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0815A1742E30A4BA00BD3417 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
+		08D7805E2E40DBCE0039B5D1 /* TravelPlannerAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TravelPlannerAuth;
+		};
+		08D780602E43896E0039B5D1 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0815A1742E30A4BA00BD3417 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		08F01ACB2E44E86400CED5EF /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 08F01ACA2E44E86300CED5EF /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		08F01ACD2E44E86400CED5EF /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 08F01ACA2E44E86300CED5EF /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
+		};
+		08F01AD32E450D9500CED5EF /* TravelPlannerNetwork */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TravelPlannerNetwork;
+		};
+		08F01AD62E45116600CED5EF /* AppResources */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AppResources;
+		};
+		08F01ADC2E45171000CED5EF /* AIPlanner */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AIPlanner;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 0815A1342E3053D900BD3417 /* Project object */;
 }

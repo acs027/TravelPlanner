@@ -1,0 +1,33 @@
+// swift-tools-version: 6.1
+// The swift-tools-version declares the minimum version of Swift required to build this package.
+
+import PackageDescription
+
+let package = Package(
+    name: "AIPlanner",
+    platforms: [
+        .iOS(.v16)
+    ],
+    products: [
+        .library(
+            name: "AIPlanner",
+            targets: ["AIPlanner"]
+        ),
+    ],
+    dependencies: [
+        .package(path: "../AppResources"),
+        .package(path: "../TravelPlannerNetwork")
+    ],
+    targets: [
+        .target(
+            name: "AIPlanner",
+            dependencies: [
+                "AppResources",
+                "TravelPlannerNetwork"
+            ],
+            resources: [
+                .process("Resources")
+            ]
+        )
+    ]
+)

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
+        <capability name="Map view configurations" minToolsVersion="14.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PlannerViewController" customModule="AIPlanner" customModuleProvider="">
+            <connections>
+                <outlet property="generateButton" destination="zJf-cQ-o44" id="aXS-Yj-yBy"/>
+                <outlet property="locationOverlayView" destination="WsI-Fz-Dci" id="H7M-hU-SH5"/>
+                <outlet property="mapView" destination="TeB-Nv-1CA" id="DDM-IZ-MPj"/>
+                <outlet property="promptTextField" destination="ZVZ-T3-ICG" id="MBz-xn-wDW"/>
+                <outlet property="promptTextFieldWidthConstraint" destination="DDM-Ck-ZBf" id="Q0p-mb-L1A"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TeB-Nv-1CA">
+                    <rect key="frame" x="0.0" y="118" width="393" height="666"/>
+                    <standardMapConfiguration key="preferredConfiguration"/>
+                </mapView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WsI-Fz-Dci" customClass="LocationOverlayView" customModule="AIPlanner" customModuleProvider="">
+                    <rect key="frame" x="0.0" y="118" width="393" height="50"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="G8l-Bp-tv2"/>
+                    </constraints>
+                </view>
+                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZVZ-T3-ICG">
+                    <rect key="frame" x="293" y="694" width="0.0" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="width" id="DDM-Ck-ZBf"/>
+                        <constraint firstAttribute="height" constant="50" id="xXp-GY-TCo"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zJf-cQ-o44">
+                    <rect key="frame" x="303" y="694" width="50" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="50" id="4J6-07-Zq1"/>
+                        <constraint firstAttribute="height" constant="50" id="Co4-ch-xz2"/>
+                    </constraints>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="filled" image="magnifyingglass" catalog="system"/>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="WsI-Fz-Dci" secondAttribute="trailing" id="226-CQ-gvR"/>
+                <constraint firstItem="ZVZ-T3-ICG" firstAttribute="centerY" secondItem="zJf-cQ-o44" secondAttribute="centerY" id="3OQ-xP-ZaG"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="TeB-Nv-1CA" secondAttribute="bottom" id="Q9Z-Rt-qah"/>
+                <constraint firstItem="zJf-cQ-o44" firstAttribute="leading" secondItem="ZVZ-T3-ICG" secondAttribute="trailing" constant="10" id="WBo-xc-KIV"/>
+                <constraint firstItem="TeB-Nv-1CA" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="aq2-Fe-cgE"/>
+                <constraint firstItem="WsI-Fz-Dci" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="bxO-Uu-oTl"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="zJf-cQ-o44" secondAttribute="bottom" constant="40" id="cLJ-Cf-i0T"/>
+                <constraint firstItem="WsI-Fz-Dci" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="duF-Ni-xDc"/>
+                <constraint firstItem="ZVZ-T3-ICG" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="40" id="pxl-8c-AEO"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="zJf-cQ-o44" secondAttribute="trailing" constant="40" id="tin-Wo-Kgi"/>
+                <constraint firstItem="TeB-Nv-1CA" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="wAX-Gw-Gmb"/>
+                <constraint firstItem="TeB-Nv-1CA" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="xJa-CM-Ck7"/>
+            </constraints>
+            <point key="canvasLocation" x="137" y="20"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="magnifyingglass" catalog="system" width="128" height="117"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
