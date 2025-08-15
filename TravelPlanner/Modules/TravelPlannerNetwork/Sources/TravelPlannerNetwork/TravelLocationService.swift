@@ -7,6 +7,7 @@
 
 import Foundation
 import AppResources
+import MockData
 
 
 public protocol TravelLocationServiceProtocol {
@@ -40,7 +41,8 @@ public final class TravelLocationService {
     
     public func fetchLocalTravelLocations(prompt: String) -> [TravelLocation] {
         do {
-            guard let url = Bundle.main.url(forResource: "TravelLocations", withExtension: "json") else {
+//            guard let url = Bundle.main.url(forResource: "TravelLocations", withExtension: "json") else {
+            guard let url = Bundle.mockData.url(forResource: "TravelLocations", withExtension: "json") else {
                 throw NSError(domain: "Local JSON not found", code: 404)
             }
             let data = try Data(contentsOf: url)

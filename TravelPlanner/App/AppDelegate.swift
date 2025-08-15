@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         let providerFactory = AircraftIdentifierAppCheckProviderFactory()
         AppCheck.setAppCheckProviderFactory(providerFactory)
-        FirebaseApp.configure()
+        FirebaseApp.configure() 
         return true
     }
 

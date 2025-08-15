@@ -11,6 +11,9 @@ import AppResources
 protocol PlannerPresenterProtocol {
     @MainActor func didTapSend(prompt: String)
     @MainActor func didSelectLocation(_ location: TravelLocation)
+    @MainActor func didRequestLogout()
+    @MainActor func didRequestSettings()
+    @MainActor func didRequestUserProfile()
 }
 
 @MainActor
@@ -32,6 +35,18 @@ class PlannerPresenter: PlannerPresenterProtocol {
     
     func didSelectLocation(_ location: TravelLocation) {
         interactor.focusMapOnLocation(location)
+    }
+    
+    func didRequestLogout() {
+        router.navigateToAuth()
+    }
+    
+    func didRequestSettings() {
+        router.navigateToSettings()
+    }
+    
+    func didRequestUserProfile() {
+        router.navigateToUserProfile()
     }
     
 }
