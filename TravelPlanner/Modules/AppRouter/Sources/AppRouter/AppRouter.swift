@@ -10,6 +10,7 @@ import TravelPlannerAuth
 import AIPlanner
 import UserProfile
 import FirebaseAuth
+import TabBar
 
 @MainActor
 public class AppRouter {
@@ -24,7 +25,7 @@ public class AppRouter {
     
     public func start() {
         if isUserAuthenticated() {
-            showPlanner()
+            tabBar()
         } else {
             showAuth()
         }
@@ -35,6 +36,11 @@ public class AppRouter {
     }
     
     // MARK: - Navigation Methods
+    public func tabBar() {
+        let tabBarController = TabBarController(routerDelegate: self)
+//        tabBarController.routerDelegate = self
+        navigationController.setViewControllers([tabBarController], animated: true)
+    }
     
     public func showAuth() {
         let authViewController = AuthRouter.createModule(delegate: self)
@@ -52,8 +58,10 @@ public class AppRouter {
     }
     
     public func logout() {
+        print("🔴 AppRouter: logout() called")
         do {
             try Auth.auth().signOut()
+            print("🔴 AppRouter: Firebase signOut successful, navigating to auth")
             showAuth()
         } catch {
             print("Error signing out: \(error.localizedDescription)")
@@ -70,21 +78,24 @@ public class AppRouter {
 // MARK: - AuthRouterDelegate
 extension AppRouter: AuthRouterDelegate {
     public func authRouterDidAuthenticate() {
-        showPlanner()
+        tabBar()
     }
 }
 
 // MARK: - PlannerRouterDelegate
 extension AppRouter: PlannerRouterDelegate {
     public func plannerRouterDidRequestLogout() {
+        print("🔴 AppRouter: plannerRouterDidRequestLogout called")
         logout()
     }
     
     public func plannerRouterDidRequestSettings() {
+        print("⚙️ AppRouter: plannerRouterDidRequestSettings called")
         showSettings()
     }
     
     public func plannerRouterDidRequestUserProfile() {
+        print("👤 AppRouter: plannerRouterDidRequestUserProfile called")
         showUserProfile()
     }
 }
@@ -100,6 +111,12 @@ extension AppRouter: UserProfileRouterDelegate {
     }
     
     public func userProfileRouterDidRequestPlanner() {
-        showPlanner()
+        tabBar()
     }
+}
+
+// MARK: - TabBarControllerDelegate
+extension AppRouter: TabBarControllerDelegate {
+    // This extension automatically conforms to both PlannerRouterDelegate and UserProfileRouterDelegate
+    // since TabBarControllerDelegate inherits from both
 }

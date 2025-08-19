@@ -6,8 +6,7 @@
 //
 
 import UIKit
-import TravelPlannerAuth
-import AIPlanner
+import AppRouter
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 

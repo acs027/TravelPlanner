@@ -17,7 +17,7 @@ protocol PlannerPresenterProtocol {
     func didRequestUserProfile()
 }
 
-//@MainActor
+
 final class PlannerPresenter {
     weak var view: PlannerViewProtocol?
     var interactor: PlannerInteractorProtocol
@@ -41,14 +41,17 @@ extension PlannerPresenter: PlannerPresenterProtocol {
     }
     
     func didRequestLogout() {
+        print("🔴 PlannerPresenter: didRequestLogout called")
         router.navigateToAuth()
     }
     
     func didRequestSettings() {
+        print("⚙️ PlannerPresenter: didRequestSettings called")
         router.navigateToSettings()
     }
     
     func didRequestUserProfile() {
+        print("👤 PlannerPresenter: didRequestUserProfile called")
         router.navigateToUserProfile()
     }
 }

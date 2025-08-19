@@ -49,14 +49,17 @@ class PlannerViewController: UIViewController {
     }
     
     @objc private func logoutTapped() {
+        print("🔴 Logout button tapped")
         presenter.didRequestLogout()
     }
     
     @objc private func settingsTapped() {
+        print("⚙️ Settings button tapped")
         presenter.didRequestSettings()
     }
     
     @objc private func userProfileTapped() {
+        print("👤 Profile button tapped")
         presenter.didRequestUserProfile()
     }
     
