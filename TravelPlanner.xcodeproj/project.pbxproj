@@ -18,7 +18,6 @@
 		08F01AD42E450D9500CED5EF /* TravelPlannerNetwork in Frameworks */ = {isa = PBXBuildFile; productRef = 08F01AD32E450D9500CED5EF /* TravelPlannerNetwork */; };
 		08F01AD72E45116600CED5EF /* AppResources in Frameworks */ = {isa = PBXBuildFile; productRef = 08F01AD62E45116600CED5EF /* AppResources */; };
 		08F01ADD2E45171000CED5EF /* AIPlanner in Frameworks */ = {isa = PBXBuildFile; productRef = 08F01ADC2E45171000CED5EF /* AIPlanner */; };
-		08F01AEB2E48BCBA00CED5EF /* Coordinator in Frameworks */ = {isa = PBXBuildFile; productRef = 08F01AEA2E48BCBA00CED5EF /* Coordinator */; };
 		08F01B0F2E491B2600CED5EF /* MockData in Frameworks */ = {isa = PBXBuildFile; productRef = 08F01B0E2E491B2600CED5EF /* MockData */; };
 		08F01B152E4CC38A00CED5EF /* UserProfile in Frameworks */ = {isa = PBXBuildFile; productRef = 08F01B142E4CC38A00CED5EF /* UserProfile */; };
 /* End PBXBuildFile section */
@@ -34,8 +33,6 @@
 				App/Info.plist,
 				Modules/AIPlanner,
 				Modules/AppResources,
-				Modules/Coordinator,
-				Modules/TravelPlanner/Modules/MockData,
 				Modules/TravelPlannerAuth,
 				Modules/TravelPlannerNetwork,
 				Modules/UserProfile,
@@ -64,7 +61,6 @@
 				0815A1782E30A4BA00BD3417 /* FirebaseAnalytics in Frameworks */,
 				08D780612E43896E0039B5D1 /* FirebaseAuth in Frameworks */,
 				08F01ADD2E45171000CED5EF /* AIPlanner in Frameworks */,
-				08F01AEB2E48BCBA00CED5EF /* Coordinator in Frameworks */,
 				08D7805F2E40DBCE0039B5D1 /* TravelPlannerAuth in Frameworks */,
 				08F01ACE2E44E86400CED5EF /* GoogleSignInSwift in Frameworks */,
 				08F01B152E4CC38A00CED5EF /* UserProfile in Frameworks */,
@@ -135,7 +131,6 @@
 				08F01AD32E450D9500CED5EF /* TravelPlannerNetwork */,
 				08F01AD62E45116600CED5EF /* AppResources */,
 				08F01ADC2E45171000CED5EF /* AIPlanner */,
-				08F01AEA2E48BCBA00CED5EF /* Coordinator */,
 				08F01B0E2E491B2600CED5EF /* MockData */,
 				08F01B142E4CC38A00CED5EF /* UserProfile */,
 			);
@@ -216,7 +211,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -224,6 +219,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.acsdev.TravelPlanner;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -244,7 +242,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -252,6 +250,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.acsdev.TravelPlanner;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -472,10 +473,6 @@
 		08F01ADC2E45171000CED5EF /* AIPlanner */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = AIPlanner;
-		};
-		08F01AEA2E48BCBA00CED5EF /* Coordinator */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = Coordinator;
 		};
 		08F01B0E2E491B2600CED5EF /* MockData */ = {
 			isa = XCSwiftPackageProductDependency;

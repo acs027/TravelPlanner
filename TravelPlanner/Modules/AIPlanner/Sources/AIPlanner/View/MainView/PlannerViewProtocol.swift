@@ -8,9 +8,10 @@
 import Foundation
 import AppResources
 
+@MainActor
 protocol PlannerViewProtocol: AnyObject {
-    @MainActor func showLocations(_ locations: [TravelLocation])
-    @MainActor func showError(_ message: String)
-    @MainActor func updateState(_ state: PlannerViewState)
-    @MainActor func focusMapOn(_ location: TravelLocation)
+    func showLocations(_ locations: [TravelLocation])
+    func showError(_ message: String)
+    func updateState(_ state: PlannerViewState)
+    func focusMapOn(_ location: TravelLocation)
 }

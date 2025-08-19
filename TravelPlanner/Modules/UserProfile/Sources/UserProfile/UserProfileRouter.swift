@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  UserProfileRouter.swift
 //  UserProfile
 //
 //  Created by ali cihan on 12.08.2025.
@@ -9,9 +9,10 @@ import Foundation
 import UIKit
 
 @MainActor
-public protocol UserProfileCoordinatorProtocol: AnyObject {
-    func didRequestLogout()
-    func showPlanner()
+public protocol UserProfileRouterDelegate: AnyObject {
+    func userProfileRouterDidRequestLogout()
+    func userProfileRouterDidRequestSettings()
+    func userProfileRouterDidRequestPlanner()
 }
 
 @MainActor
@@ -21,12 +22,14 @@ public protocol UserProfileRouterProtocol {
     func navigateToPlanner()
 }
 
-
 public class UserProfileRouter: UserProfileRouterProtocol {
+    public weak var delegate: UserProfileRouterDelegate?
     
-    private weak var coordinator: UserProfileCoordinatorProtocol?
+    public static func assembleModule() -> UIViewController {
+        return assembleModule(delegate: nil)
+    }
     
-    @MainActor public static func assembleModule(coordinator: UserProfileCoordinatorProtocol?) -> UIViewController {
+    public static func assembleModule(delegate: UserProfileRouterDelegate?) -> UIViewController {
         let vc = UserProfileViewController()
         let interactor = UserProfileInteractor()
         let router = UserProfileRouter()
@@ -34,17 +37,19 @@ public class UserProfileRouter: UserProfileRouterProtocol {
         
         vc.presenter = presenter
         interactor.output = presenter
-        router.coordinator = coordinator
+        router.delegate = delegate
         return vc
     }
     
     public func navigateToAuth() {
-        coordinator?.didRequestLogout()
+        delegate?.userProfileRouterDidRequestLogout()
     }
     
-    public func navigateToSettings() {}
+    public func navigateToSettings() {
+        delegate?.userProfileRouterDidRequestSettings()
+    }
     
     public func navigateToPlanner() {
-        coordinator?.showPlanner()
+        delegate?.userProfileRouterDidRequestPlanner()
     }
 }

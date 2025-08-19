@@ -8,12 +8,11 @@
 import UIKit
 import TravelPlannerAuth
 import AIPlanner
-import Coordinator
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-    private var appCoordinator: AppCoordinator?
+    private var appRouter: AppRouter?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
@@ -21,9 +20,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         self.window = window
         
-        // Initialize and start the AppCoordinator
-        appCoordinator = AppCoordinator(window: window)
-        appCoordinator?.start()
+        // Initialize and start the AppRouter
+        appRouter = AppRouter(window: window)
+        appRouter?.start()
         
         window.makeKeyAndVisible()
     }

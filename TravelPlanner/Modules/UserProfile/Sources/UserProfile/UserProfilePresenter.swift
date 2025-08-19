@@ -6,16 +6,16 @@
 //
 
 import Foundation
+import FirebaseAuth
 
 @MainActor
 protocol UserProfilePresenterProtocol {
     func didRequestLogout()
+    func didRequestFetchUsser()
 }
 
 
-class UserProfilePresenter: UserProfilePresenterProtocol {
-    
-    
+final class UserProfilePresenter {
     weak var view: UserProfileViewProtocol?
     var interactor: UserProfileInteractorProtocol
     var router: UserProfileRouterProtocol
@@ -25,14 +25,24 @@ class UserProfilePresenter: UserProfilePresenterProtocol {
         self.interactor = interactor
         self.router = router
     }
-    
+}
+
+extension UserProfilePresenter: UserProfilePresenterProtocol {
     func didRequestLogout() {
         interactor.logout()
+    }
+    
+    func didRequestFetchUsser() {
+        interactor.fetchUser()
     }
 }
 
 extension UserProfilePresenter: UserProfileInteractorOutputProtocol {
     func didLogout() {
         router.navigateToAuth()
+    }
+    
+    func didFetchUser(_ user: User?) {
+        view?.updateUserProfile(user: user)
     }
 }

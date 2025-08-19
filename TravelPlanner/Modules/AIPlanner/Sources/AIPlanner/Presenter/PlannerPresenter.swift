@@ -8,16 +8,17 @@
 import Foundation
 import AppResources
 
+@MainActor
 protocol PlannerPresenterProtocol {
-    @MainActor func didTapSend(prompt: String)
-    @MainActor func didSelectLocation(_ location: TravelLocation)
-    @MainActor func didRequestLogout()
-    @MainActor func didRequestSettings()
-    @MainActor func didRequestUserProfile()
+    func didTapSend(prompt: String)
+    func didSelectLocation(_ location: TravelLocation)
+    func didRequestLogout()
+    func didRequestSettings()
+    func didRequestUserProfile()
 }
 
-@MainActor
-class PlannerPresenter: PlannerPresenterProtocol {
+//@MainActor
+final class PlannerPresenter {
     weak var view: PlannerViewProtocol?
     var interactor: PlannerInteractorProtocol
     var router: PlannerRouterProtocol
@@ -27,7 +28,9 @@ class PlannerPresenter: PlannerPresenterProtocol {
         self.interactor = interactor
         self.router = router
     }
-    
+}
+
+extension PlannerPresenter: PlannerPresenterProtocol {
     func didTapSend(prompt: String) {
         view?.updateState(.loading)
         interactor.fetchTravelLocations(prompt: prompt)
@@ -48,7 +51,6 @@ class PlannerPresenter: PlannerPresenterProtocol {
     func didRequestUserProfile() {
         router.navigateToUserProfile()
     }
-    
 }
 
 extension PlannerPresenter: PlannerInteractorOutputProtocol {

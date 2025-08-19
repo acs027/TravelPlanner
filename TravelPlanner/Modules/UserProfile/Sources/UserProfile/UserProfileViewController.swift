@@ -8,7 +8,7 @@
 import UIKit
 
 
-class UserProfileViewController: UIViewController {
+final class UserProfileViewController: UIViewController {
     @IBOutlet weak var userImage: UIImageView!
     @IBOutlet weak var emailContainerView: UIView!
     @IBOutlet weak var displayName: UILabel!
@@ -32,20 +32,43 @@ class UserProfileViewController: UIViewController {
         emailContainerView.layer.cornerRadius = emailContainerView.frame.height / 2 // pill shape
         emailContainerView.layer.masksToBounds = true
         logoutButton.addTarget(self, action: #selector(logoutTapped), for: .touchUpInside)
+        presenter.didRequestFetchUsser()
 
         // Do any additional setup after loading the view.
     }
-    
-    
     
     @objc private func logoutTapped() {
         presenter.didRequestLogout()
     }
 }
 
+@MainActor
 protocol UserProfileViewProtocol: AnyObject {
+    func updateUserProfile(user: User?)
 }
 
 extension UserProfileViewController: UserProfileViewProtocol {
-    
+    public func updateUserProfile(user: User?) {
+        if let user = user {
+            self.emailLabel.text = user.email
+            self.displayName.text = user.displayName
+            if let photoURL = user.photoURL {
+                self.userImage.load(url: photoURL)
+            }
+        }
+    }
+}
+
+extension UIImageView {
+    func load(url: URL) {
+        DispatchQueue.global().async { [weak self] in
+            if let data = try? Data(contentsOf: url) {
+                if let image = UIImage(data: data) {
+                    DispatchQueue.main.async {
+                        self?.image = image
+                    }
+                }
+            }
+        }
+    }
 }

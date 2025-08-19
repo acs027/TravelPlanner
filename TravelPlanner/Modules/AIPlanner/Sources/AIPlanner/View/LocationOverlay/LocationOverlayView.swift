@@ -8,8 +8,9 @@
 import UIKit
 import AppResources
 
+@MainActor
 protocol LocationOverlayViewDelegate: AnyObject {
-    @MainActor func didSelectLocation(_ location: TravelLocation)
+    func didSelectLocation(_ location: TravelLocation)
 }
 
 class LocationOverlayView: UIView {
@@ -84,9 +85,7 @@ extension LocationOverlayView: UICollectionViewDataSource {
 extension LocationOverlayView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let location = locations[indexPath.item]
-        Task { @MainActor in
-            delegate?.didSelectLocation(location)
-        }
+        delegate?.didSelectLocation(location)
     }
 }
 

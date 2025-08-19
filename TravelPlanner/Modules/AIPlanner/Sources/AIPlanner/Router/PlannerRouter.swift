@@ -9,10 +9,10 @@ import Foundation
 import UIKit
 
 @MainActor
-public protocol PlannerCoordinatorProtocol: AnyObject {
-    func didRequestLogout()
-    func showSettings()
-    func showUserProfile()
+public protocol PlannerRouterDelegate: AnyObject {
+    func plannerRouterDidRequestLogout()
+    func plannerRouterDidRequestSettings()
+    func plannerRouterDidRequestUserProfile()
 }
 
 @MainActor
@@ -22,15 +22,14 @@ public protocol PlannerRouterProtocol {
     func navigateToUserProfile()
 }
 
-@MainActor
 public class PlannerRouter: PlannerRouterProtocol {
-    private weak var coordinator: PlannerCoordinatorProtocol?
+    public weak var delegate: PlannerRouterDelegate?
     
     public static func assembleModule() -> UIViewController {
-        return assembleModule(coordinator: nil)
+        return assembleModule(delegate: nil)
     }
     
-    public static func assembleModule(coordinator: PlannerCoordinatorProtocol?) -> UIViewController {
+    public static func assembleModule(delegate: PlannerRouterDelegate?) -> UIViewController {
         let vc = PlannerViewController()
         let interactor = PlannerInteractor()
         let router = PlannerRouter()
@@ -38,19 +37,20 @@ public class PlannerRouter: PlannerRouterProtocol {
         
         vc.presenter = presenter
         interactor.output = presenter
-        router.coordinator = coordinator
+        router.delegate = delegate
         return vc
     }
     
     public func navigateToAuth() {
-        coordinator?.didRequestLogout()
+        delegate?.plannerRouterDidRequestLogout()
     }
     
     public func navigateToSettings() {
-        coordinator?.showSettings()
+        delegate?.plannerRouterDidRequestSettings()
     }
     
     public func navigateToUserProfile() {
-        coordinator?.showUserProfile()
+        delegate?.plannerRouterDidRequestUserProfile()
     }
 }
+

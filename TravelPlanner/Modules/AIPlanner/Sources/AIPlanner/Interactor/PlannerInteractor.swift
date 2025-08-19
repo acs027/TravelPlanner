@@ -9,46 +9,55 @@ import Foundation
 import TravelPlannerNetwork
 import AppResources
 
-
+@MainActor
 protocol PlannerInteractorProtocol {
-    @MainActor func fetchTravelLocations(prompt: String)
-    @MainActor func focusMapOnLocation(_ location: TravelLocation)
-}
-
-
-protocol PlannerInteractorOutputProtocol: AnyObject {
-    @MainActor func locationsFetched(_ locations: [TravelLocation])
-    @MainActor func fetchingFailed(error: Error)
-    @MainActor func focusMapOn(_ location: TravelLocation)
+    func fetchTravelLocations(prompt: String)
+    func focusMapOnLocation(_ location: TravelLocation)
 }
 
 @MainActor
-class PlannerInteractor: PlannerInteractorProtocol {
-    
-    weak var output: PlannerInteractorOutputProtocol?
-    
-    private var locations: [TravelLocation] = []
+protocol PlannerInteractorOutputProtocol: AnyObject {
+    func locationsFetched(_ locations: [TravelLocation])
+    func fetchingFailed(error: Error)
+    func focusMapOn(_ location: TravelLocation)
+}
 
-    #if DEBUG
-    func fetchTravelLocations(prompt: String)  {
-        locations = TravelLocationService().fetchLocalTravelLocations(prompt: prompt)
-        output?.locationsFetched(locations)
-    }
-    #else
+final class PlannerInteractor {
+    weak var output: PlannerInteractorOutputProtocol?
+    private var service = TravelLocationService()
+}
+
+extension PlannerInteractor: PlannerInteractorProtocol {
+#if DEBUG
     func fetchTravelLocations(prompt: String) {
-        Task {
-            let fetchedLocations = await TravelLocationService().fetchTravelLocations(prompt: prompt)
-            await MainActor.run { [weak self] in
+        let fetchedLocations = service.fetchLocalTravelLocations(prompt: prompt)
+        output?.locationsFetched(fetchedLocations)
+    }
+#else
+    func fetchTravelLocations(prompt: String) {
+        Task { [weak self] in
+            do {
+                let fetchedLocations = await TravelLocationService().fetchTravelLocations(prompt: prompt)
+                
+                await MainActor.run { [weak output = self?.output] in
+                    output?.locationsFetched(fetchedLocations)
+                }
+                
+                // Update locations on background thread
                 self?.locations = fetchedLocations
-                self?.output?.locationsFetched(fetchedLocations)
+            } catch {
+                await MainActor.run { [weak output = self?.output] in
+                    output?.fetchingFailed(error: error)
+                }
             }
         }
     }
-    #endif
-   
+#endif
     
     func focusMapOnLocation(_ location: TravelLocation) {
+        
         output?.focusMapOn(location)
+        
     }
-    
 }
+

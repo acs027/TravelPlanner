@@ -8,7 +8,7 @@
 import Foundation
 
 // Models/TravelLocation.swift
-public struct TravelLocation: Codable, Sendable {
+public struct TravelLocation: Codable {
     public let id: String
     public let name: String
     public let description: String

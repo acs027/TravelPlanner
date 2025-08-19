@@ -4,7 +4,8 @@
 //
 //  Created by ali cihan on 4.08.2025.
 //
-@MainActor
+
+
 public final class AuthPresenter {
     public weak var view: AuthViewProtocol?
     public var interactor: AuthInteractorProtocol
