@@ -2,7 +2,6 @@
 //  AppRouter.swift
 //  TravelPlanner
 //
-//  Created by Kiro on 19.08.2025.
 //
 
 import UIKit

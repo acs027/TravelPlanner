@@ -9,6 +9,8 @@ public protocol AuthViewProtocol: AnyObject {
     func showError(_ message: String)
         func showSuccess()
         func updateUIForMode(isSignup: Bool)
+    func showProgress()
+    func hideProgress()
 }
 
 @MainActor

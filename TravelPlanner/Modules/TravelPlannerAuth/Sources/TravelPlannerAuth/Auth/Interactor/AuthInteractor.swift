@@ -15,7 +15,6 @@ public final class AuthInteractor: AuthInteractorProtocol {
         Auth.auth().signIn(withEmail: credentials.email, password: credentials.password) { result, error in
             if let error = error {
                 self.output?.authFailed(with: error.localizedDescription)
-                
             } else {
                 self.output?.authSucceeded()
             }

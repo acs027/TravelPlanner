@@ -9,7 +9,7 @@
 
 import UIKit
 
-final class AuthViewController: UIViewController, AuthViewProtocol {
+final class AuthViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var rePasswordTextFeild: UITextField!
@@ -17,6 +17,8 @@ final class AuthViewController: UIViewController, AuthViewProtocol {
     @IBOutlet weak var signupButton: UIButton!
     @IBOutlet weak var switchToLoginButton: UIButton!
     @IBOutlet weak var switchToSignupButton: UIButton!
+    
+    private var activityIndicator: UIActivityIndicatorView?
     
     var presenter: AuthPresenterProtocol!
     
@@ -26,6 +28,12 @@ final class AuthViewController: UIViewController, AuthViewProtocol {
         signupButton.addTarget(self, action: #selector(signupTapped), for: .touchUpInside)
         switchToLoginButton.addTarget(self, action: #selector(switchToLoginTapped), for: .touchUpInside)
         switchToSignupButton.addTarget(self, action: #selector(switchToSignupTapped), for: .touchUpInside)
+        
+        let indicator = UIActivityIndicatorView(style: .large)
+                indicator.center = view.center
+                indicator.hidesWhenStopped = true
+                view.addSubview(indicator)
+                activityIndicator = indicator
     }
     
     @objc private func loginTapped() {
@@ -51,8 +59,9 @@ final class AuthViewController: UIViewController, AuthViewProtocol {
     @objc private func switchToSignupTapped() {
         presenter.toggleAuthMode()
     }
+}
 
-    
+extension AuthViewController: AuthViewProtocol {
     func updateUIForMode(isSignup: Bool) {
         UIView.animate(withDuration: 0.3) {
             self.rePasswordTextFeild.isHidden = !isSignup
@@ -65,13 +74,26 @@ final class AuthViewController: UIViewController, AuthViewProtocol {
     
     func showError(_ message: String) {
         
-        //        let alert = UIAlertController(title: "Auth Error", message: message, preferredStyle: .alert)
-        //        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        //        present(alert, animated: true)
+        let alert = UIAlertController(title: "Auth Error", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
     }
     
     func showSuccess() {
         // Optional: Add UI feedback
+    }
+    
+    func showProgress() {
+        debugPrint("show progress")
+        self.view.isUserInteractionEnabled = false
+        activityIndicator?.startAnimating()
+    }
+    
+    func hideProgress() {
+        debugPrint("hide progress")
+        activityIndicator?.stopAnimating()
+        self.view.isUserInteractionEnabled = true
+        
     }
 }
 

@@ -27,8 +27,9 @@ extension AuthPresenter: AuthPresenterProtocol {
     }
     
     public func loginTapped(email: String, password: String) {
+        view?.showProgress()
         guard !email.isEmpty, !password.isEmpty else {
-            view?.showError("Email and password must not be empty.")
+            authFailed(with: "Email and password must not be empty.")
             return
         }
         
@@ -38,12 +39,12 @@ extension AuthPresenter: AuthPresenterProtocol {
     
     public func signupTapped(email: String, password: String, passwordConfirmation: String) {
         guard !email.isEmpty, !password.isEmpty else {
-            view?.showError("Email and password must not be empty.")
+            authFailed(with: "Email and password must not be empty.")
             return
         }
         
         if passwordConfirmation != password {
-            view?.showError("Passwords do not match.")
+            authFailed(with: "Passwords do not match.")
             return
         }
         let credentials = AuthCredentials(email: email, password: password)
@@ -53,11 +54,13 @@ extension AuthPresenter: AuthPresenterProtocol {
 
 extension AuthPresenter: AuthInteractorOutputProtocol {
     public func authSucceeded() {
+        view?.hideProgress()
         view?.showSuccess()
         router.navigateToHome()
     }
 
     public func authFailed(with error: String) {
+        view?.hideProgress()
         view?.showError(error)
     }
 }

@@ -33,17 +33,14 @@ private extension TabBarController {
     final func setupTabbar() {
         print("📱 TabBarController: setupTabbar called, routerDelegate: \(String(describing: routerDelegate))")
         
-        /// MainViewController
+        /// AIPlannerViewController
         let plannerVC = PlannerRouter.assembleModule(delegate: routerDelegate)
-        let plannerNavigationController = getStyledNavigationController(with: plannerVC, title: "1", image: UIImage(systemName: "house")!)
+        let plannerNavigationController = getStyledNavigationController(with: plannerVC, title: "AI Planner", image: UIImage(systemName: "point.topright.arrow.triangle.backward.to.point.bottomleft.filled.scurvepath")!)
         
-        /// SpecialViewController
+        /// UserProfileViewController
         let userProfileVC = UserProfileRouter.assembleModule(delegate: routerDelegate)
-        let userProfileNavigationController = getStyledNavigationController(with: userProfileVC, title:"2", image: UIImage(systemName: "house")!)
+        let userProfileNavigationController = getStyledNavigationController(with: userProfileVC, title:"Profile", image: UIImage(systemName: "person.circle.fill")!)
         
-//        /// Favorites
-//        let favoritesVC = FavoritesRouter.createModule()
-//        let favoritesNavigationController = getStyledNavigationController(with: favoritesVC, title: "3", image: UIImage(systemName: "house")!)
         
         viewControllers = [plannerNavigationController, userProfileNavigationController]
         customizeTabBarAppearance()
@@ -73,31 +70,4 @@ private extension TabBarController {
     }
 }
 
-extension UIImage {
-    
-    public class func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage? {
-        let size = image.size
-        
-        let widthRatio  = targetSize.width  / size.width
-        let heightRatio = targetSize.height / size.height
-        
-        // Figure out what our orientation is, and use that to form the rectangle
-        var newSize: CGSize
-        if(widthRatio > heightRatio) {
-            newSize = CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
-        } else {
-            newSize = CGSize(width: size.width * widthRatio, height: size.height * widthRatio)
-        }
-        
-        // This is the rect that we've calculated out and this is what is actually used below
-        let rect = CGRect(origin: .zero, size: newSize)
-        
-        // Actually do the resizing to the rect using the ImageContext stuff
-        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
-        image.draw(in: rect)
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        return newImage
-    }
-}
+

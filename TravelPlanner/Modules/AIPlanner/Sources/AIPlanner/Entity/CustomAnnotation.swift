@@ -6,7 +6,7 @@
 //
 import MapKit
 
-class CustomAnnotation: NSObject, MKAnnotation {
+final class CustomAnnotation: NSObject, MKAnnotation {
     let title: String?
     let subtitle: String?
     let coordinate: CLLocationCoordinate2D

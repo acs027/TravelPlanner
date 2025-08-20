@@ -37,15 +37,13 @@ class PlannerViewController: UIViewController {
     }
     
     private func setupNavigationBar() {
-        title = "Travel Planner"
-        
         // Add navigation buttons
-        let logoutButton = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(logoutTapped))
-        let settingsButton = UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(settingsTapped))
-        let navigateToUserProfile = UIBarButtonItem(title: "Profile", style: .plain, target: self, action: #selector(userProfileTapped))
-        
-        navigationItem.leftBarButtonItem = logoutButton
-        navigationItem.rightBarButtonItems = [settingsButton, navigateToUserProfile]
+//        let logoutButton = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(logoutTapped))
+//        let settingsButton = UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(settingsTapped))
+//        let navigateToUserProfile = UIBarButtonItem(title: "Profile", style: .plain, target: self, action: #selector(userProfileTapped))
+//        
+//        navigationItem.leftBarButtonItem = logoutButton
+//        navigationItem.rightBarButtonItems = [settingsButton, navigateToUserProfile]
     }
     
     @objc private func logoutTapped() {
