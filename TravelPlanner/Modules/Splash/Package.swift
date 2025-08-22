@@ -4,35 +4,27 @@
 import PackageDescription
 
 let package = Package(
-    name: "AppRouter",
+    name: "Splash",
     platforms: [.iOS(.v15)],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
-            name: "AppRouter",
-            targets: ["AppRouter"]),
+            name: "Splash",
+            targets: ["Splash"]),
     ],
     dependencies: [
-        .package(path: "../AIPlanner"),
-        .package(path: "../UserProfile"),
-        .package(path: "../TravelPlannerAuth"),
+        .package(path: "../AppResources"),
         .package(path: "../TabBar"),
-        .package(path: "../Splash"),
-        .package(path: "../Onboarding"),
         .package(url: "https://github.com/firebase/firebase-ios-sdk.git", from: "12.0.0")
     ],
     targets: [
         .target(
-            name: "AppRouter",
+            name: "Splash",
             dependencies: [
-                "AIPlanner",
-                "UserProfile",
-                "TravelPlannerAuth",
-                "TabBar",
-                "Splash",
-                "Onboarding",
+                "AppResources", "TabBar",
                 .product(name: "FirebaseAuth", package: "firebase-ios-sdk")
-            ]
+            ],
+            resources: [.process("Resources")]
         )
     ]
 )

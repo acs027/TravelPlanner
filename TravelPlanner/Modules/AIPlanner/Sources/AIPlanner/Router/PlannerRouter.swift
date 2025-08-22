@@ -10,16 +10,16 @@ import UIKit
 
 @MainActor
 public protocol PlannerRouterDelegate: AnyObject {
-    func plannerRouterDidRequestLogout()
-    func plannerRouterDidRequestSettings()
-    func plannerRouterDidRequestUserProfile()
+//    func plannerRouterDidRequestLogout()
+//    func plannerRouterDidRequestSettings()
+//    func plannerRouterDidRequestUserProfile()
 }
 
 @MainActor
 public protocol PlannerRouterProtocol {
-    func navigateToAuth()
-    func navigateToSettings()
-    func navigateToUserProfile()
+//    func navigateToAuth()
+//    func navigateToSettings()
+//    func navigateToUserProfile()
 }
 
 public class PlannerRouter: PlannerRouterProtocol {
@@ -41,19 +41,19 @@ public class PlannerRouter: PlannerRouterProtocol {
         return vc
     }
     
-    public func navigateToAuth() {
-        print("🔴 PlannerRouter: navigateToAuth called, delegate: \(String(describing: delegate))")
-        delegate?.plannerRouterDidRequestLogout()
-    }
+//    public func navigateToAuth() {
+//        print("🔴 PlannerRouter: navigateToAuth called, delegate: \(String(describing: delegate))")
+//        delegate?.plannerRouterDidRequestLogout()
+//    }
     
-    public func navigateToSettings() {
-        print("⚙️ PlannerRouter: navigateToSettings called, delegate: \(String(describing: delegate))")
-        delegate?.plannerRouterDidRequestSettings()
-    }
+//    public func navigateToSettings() {
+//        print("⚙️ PlannerRouter: navigateToSettings called, delegate: \(String(describing: delegate))")
+//        delegate?.plannerRouterDidRequestSettings()
+//    }
     
-    public func navigateToUserProfile() {
-        print("👤 PlannerRouter: navigateToUserProfile called, delegate: \(String(describing: delegate))")
-        delegate?.plannerRouterDidRequestUserProfile()
-    }
+//    public func navigateToUserProfile() {
+//        print("👤 PlannerRouter: navigateToUserProfile called, delegate: \(String(describing: delegate))")
+//        delegate?.plannerRouterDidRequestUserProfile()
+//    }
 }
 

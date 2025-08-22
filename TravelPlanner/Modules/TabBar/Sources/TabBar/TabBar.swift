@@ -7,7 +7,6 @@ import UserProfile
 
 @MainActor
 public protocol TabBarControllerDelegate: PlannerRouterDelegate, UserProfileRouterDelegate {
-    func plannerRouterDidRequestUserProfile()
 }
 
 public class TabBarController: UITabBarController {

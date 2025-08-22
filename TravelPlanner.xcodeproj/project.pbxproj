@@ -22,6 +22,7 @@
 		08F01B152E4CC38A00CED5EF /* UserProfile in Frameworks */ = {isa = PBXBuildFile; productRef = 08F01B142E4CC38A00CED5EF /* UserProfile */; };
 		08F01B472E54D0B300CED5EF /* TabBar in Frameworks */ = {isa = PBXBuildFile; productRef = 08F01B462E54D0B300CED5EF /* TabBar */; };
 		08F01B4A2E54EFB500CED5EF /* AppRouter in Frameworks */ = {isa = PBXBuildFile; productRef = 08F01B492E54EFB500CED5EF /* AppRouter */; };
+		08F01B4D2E561C6700CED5EF /* Splash in Frameworks */ = {isa = PBXBuildFile; productRef = 08F01B4C2E561C6700CED5EF /* Splash */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,8 @@
 				Modules/AIPlanner,
 				Modules/AppResources,
 				Modules/AppRouter,
+				Modules/Onboarding,
+				Modules/Splash,
 				Modules/TabBar,
 				Modules/TravelPlannerAuth,
 				Modules/TravelPlannerNetwork,
@@ -62,6 +65,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				08F01B0F2E491B2600CED5EF /* MockData in Frameworks */,
+				08F01B4D2E561C6700CED5EF /* Splash in Frameworks */,
 				0815A1782E30A4BA00BD3417 /* FirebaseAnalytics in Frameworks */,
 				08F01B472E54D0B300CED5EF /* TabBar in Frameworks */,
 				08F01B4A2E54EFB500CED5EF /* AppRouter in Frameworks */,
@@ -141,6 +145,7 @@
 				08F01B142E4CC38A00CED5EF /* UserProfile */,
 				08F01B462E54D0B300CED5EF /* TabBar */,
 				08F01B492E54EFB500CED5EF /* AppRouter */,
+				08F01B4C2E561C6700CED5EF /* Splash */,
 			);
 			productName = TravelPlanner;
 			productReference = 0815A13C2E3053D900BD3417 /* TravelPlanner.app */;
@@ -497,6 +502,10 @@
 		08F01B492E54EFB500CED5EF /* AppRouter */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = AppRouter;
+		};
+		08F01B4C2E561C6700CED5EF /* Splash */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Splash;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

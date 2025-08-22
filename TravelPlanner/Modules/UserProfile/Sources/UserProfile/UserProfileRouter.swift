@@ -12,14 +12,14 @@ import UIKit
 public protocol UserProfileRouterDelegate: AnyObject {
     func userProfileRouterDidRequestLogout()
     func userProfileRouterDidRequestSettings()
-    func userProfileRouterDidRequestPlanner()
+//    func userProfileRouterDidRequestPlanner()
 }
 
 @MainActor
 public protocol UserProfileRouterProtocol {
     func navigateToAuth()
     func navigateToSettings()
-    func navigateToPlanner()
+//    func navigateToPlanner()
 }
 
 public class UserProfileRouter: UserProfileRouterProtocol {
@@ -49,7 +49,7 @@ public class UserProfileRouter: UserProfileRouterProtocol {
         delegate?.userProfileRouterDidRequestSettings()
     }
     
-    public func navigateToPlanner() {
-        delegate?.userProfileRouterDidRequestPlanner()
-    }
+//    public func navigateToPlanner() {
+//        delegate?.userProfileRouterDidRequestPlanner()
+//    }
 }

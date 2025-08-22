@@ -10,6 +10,8 @@ import AIPlanner
 import UserProfile
 import FirebaseAuth
 import TabBar
+import Splash
+import Onboarding
 
 @MainActor
 public class AppRouter {
@@ -23,11 +25,7 @@ public class AppRouter {
     }
     
     public func start() {
-        if isUserAuthenticated() {
-            tabBar()
-        } else {
-            showAuth()
-        }
+        showSplash()
     }
     
     private func isUserAuthenticated() -> Bool {
@@ -37,7 +35,6 @@ public class AppRouter {
     // MARK: - Navigation Methods
     public func tabBar() {
         let tabBarController = TabBarController(routerDelegate: self)
-//        tabBarController.routerDelegate = self
         navigationController.setViewControllers([tabBarController], animated: true)
     }
     
@@ -49,6 +46,16 @@ public class AppRouter {
     public func showPlanner() {
         let plannerViewController = PlannerRouter.assembleModule(delegate: self)
         navigationController.setViewControllers([plannerViewController], animated: true)
+    }
+    
+    public func showSplash() {
+        let splashViewController = SplashRouter.assembleModule(delegate: self)
+        navigationController.setViewControllers([splashViewController], animated: true)
+    }
+    
+    public func showOnboarding() {
+        let onboardingViewController = OnboardingRouter.assembleModule(delegate: self)
+        navigationController.setViewControllers([onboardingViewController], animated: true)
     }
     
     public func showUserProfile() {
@@ -72,6 +79,14 @@ public class AppRouter {
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         navigationController.present(alert, animated: true)
     }
+    
+    private func navigationFlow() {
+        if isUserAuthenticated() {
+            tabBar()
+        } else {
+            showAuth()
+        }
+    }
 }
 
 // MARK: - AuthRouterDelegate
@@ -81,22 +96,31 @@ extension AppRouter: AuthRouterDelegate {
     }
 }
 
+extension AppRouter: OnboardingRouterDelegate {
+    public func didFinishOnboarding() {
+        navigationFlow()
+    }
+}
+
+//MARK: - SplashRouterDelegates
+extension AppRouter: SplashRouterDelegate {
+    public func didFinishSplash() {
+        if let isOnboardingShowed = UserDefaults.standard.object(forKey: "isOnboardingShowed") as? Bool,
+           isOnboardingShowed {
+            debugPrint("nav flow")
+            navigationFlow()
+            
+        } else {
+            debugPrint("show onboarding")
+            showOnboarding()
+            
+        }
+    }
+}
+
 // MARK: - PlannerRouterDelegate
 extension AppRouter: PlannerRouterDelegate {
-    public func plannerRouterDidRequestLogout() {
-        print("🔴 AppRouter: plannerRouterDidRequestLogout called")
-        logout()
-    }
     
-    public func plannerRouterDidRequestSettings() {
-        print("⚙️ AppRouter: plannerRouterDidRequestSettings called")
-        showSettings()
-    }
-    
-    public func plannerRouterDidRequestUserProfile() {
-        print("👤 AppRouter: plannerRouterDidRequestUserProfile called")
-        showUserProfile()
-    }
 }
 
 // MARK: - UserProfileRouterDelegate
@@ -108,14 +132,12 @@ extension AppRouter: UserProfileRouterDelegate {
     public func userProfileRouterDidRequestSettings() {
         showSettings()
     }
-    
-    public func userProfileRouterDidRequestPlanner() {
-        tabBar()
-    }
 }
+
 
 // MARK: - TabBarControllerDelegate
 extension AppRouter: TabBarControllerDelegate {
+    
     // This extension automatically conforms to both PlannerRouterDelegate and UserProfileRouterDelegate
     // since TabBarControllerDelegate inherits from both
 }

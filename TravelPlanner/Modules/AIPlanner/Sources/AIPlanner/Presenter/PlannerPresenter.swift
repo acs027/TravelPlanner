@@ -12,9 +12,9 @@ import AppResources
 protocol PlannerPresenterProtocol {
     func didTapSend(prompt: String)
     func didSelectLocation(_ location: TravelLocation)
-    func didRequestLogout()
-    func didRequestSettings()
-    func didRequestUserProfile()
+//    func didRequestLogout()
+//    func didRequestSettings()
+//    func didRequestUserProfile()
 }
 
 
@@ -39,21 +39,21 @@ extension PlannerPresenter: PlannerPresenterProtocol {
     func didSelectLocation(_ location: TravelLocation) {
         interactor.focusMapOnLocation(location)
     }
+//    
+//    func didRequestLogout() {
+//        print("🔴 PlannerPresenter: didRequestLogout called")
+//        router.navigateToAuth()
+//    }
     
-    func didRequestLogout() {
-        print("🔴 PlannerPresenter: didRequestLogout called")
-        router.navigateToAuth()
-    }
-    
-    func didRequestSettings() {
-        print("⚙️ PlannerPresenter: didRequestSettings called")
-        router.navigateToSettings()
-    }
-    
-    func didRequestUserProfile() {
-        print("👤 PlannerPresenter: didRequestUserProfile called")
-        router.navigateToUserProfile()
-    }
+//    func didRequestSettings() {
+//        print("⚙️ PlannerPresenter: didRequestSettings called")
+//        router.navigateToSettings()
+//    }
+//    
+//    func didRequestUserProfile() {
+//        print("👤 PlannerPresenter: didRequestUserProfile called")
+//        router.navigateToUserProfile()
+//    }
 }
 
 extension PlannerPresenter: PlannerInteractorOutputProtocol {

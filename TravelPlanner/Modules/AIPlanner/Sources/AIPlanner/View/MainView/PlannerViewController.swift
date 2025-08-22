@@ -46,20 +46,20 @@ class PlannerViewController: UIViewController {
 //        navigationItem.rightBarButtonItems = [settingsButton, navigateToUserProfile]
     }
     
-    @objc private func logoutTapped() {
-        print("🔴 Logout button tapped")
-        presenter.didRequestLogout()
-    }
+//    @objc private func logoutTapped() {
+//        print("🔴 Logout button tapped")
+//        presenter.didRequestLogout()
+//    }
     
-    @objc private func settingsTapped() {
-        print("⚙️ Settings button tapped")
-        presenter.didRequestSettings()
-    }
-    
-    @objc private func userProfileTapped() {
-        print("👤 Profile button tapped")
-        presenter.didRequestUserProfile()
-    }
+//    @objc private func settingsTapped() {
+//        print("⚙️ Settings button tapped")
+//        presenter.didRequestSettings()
+//    }
+//    
+//    @objc private func userProfileTapped() {
+//        print("👤 Profile button tapped")
+//        presenter.didRequestUserProfile()
+//    }
     
     private func setupUI() {
         guard let generateButton = generateButton,
