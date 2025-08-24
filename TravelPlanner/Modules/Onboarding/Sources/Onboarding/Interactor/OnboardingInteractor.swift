@@ -10,6 +10,7 @@ import Foundation
 @MainActor
 protocol OnboardingInteractorProtocol {
     func toggleIsOnboardingShowed()
+    func getOnboardingPageContentData(index: Int) -> OnboardingPageInfo?
 }
 
 @MainActor
@@ -27,5 +28,14 @@ extension OnboardingInteractor: OnboardingInteractorProtocol {
     func toggleIsOnboardingShowed() {
         UserDefaults.standard.set(true, forKey: "isOnboardingShowed")
         output?.didFinishOnboarding()
+    }
+    
+    func getOnboardingPageContentData(index: Int) -> OnboardingPageInfo? {
+        let pages = OnboardingPagesData().pagesData
+        guard index - 1 >= 0, index - 1 < pages.count else {
+            return nil
+        }
+        let data = pages[index - 1]
+        return data
     }
 }

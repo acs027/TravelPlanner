@@ -7,7 +7,6 @@
 
 import Foundation
 import UIKit
-import TabBar
 
 @MainActor
 public protocol SplashRouterDelegate: AnyObject {

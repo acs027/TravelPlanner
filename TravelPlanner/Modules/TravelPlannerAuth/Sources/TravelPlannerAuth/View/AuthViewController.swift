@@ -9,6 +9,16 @@
 
 import UIKit
 
+// MARK: - AuthViewProtocol
+@MainActor
+public protocol AuthViewProtocol: AnyObject {
+    func showError(_ message: String)
+        func showSuccess()
+        func updateUIForMode(isSignup: Bool)
+    func showProgress()
+    func hideProgress()
+}
+
 final class AuthViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -61,6 +71,7 @@ final class AuthViewController: UIViewController {
     }
 }
 
+// MARK: -  AuthViewController-AuthViewProtocol
 extension AuthViewController: AuthViewProtocol {
     func updateUIForMode(isSignup: Bool) {
         UIView.animate(withDuration: 0.3) {

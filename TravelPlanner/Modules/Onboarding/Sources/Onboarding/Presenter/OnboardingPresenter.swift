@@ -6,16 +6,20 @@
 //
 
 import Foundation
+import UIKit
 
 @MainActor
 protocol OnboardingPresenterProtocol {
     func skipOnboarding()
+    func getPage(index: Int) -> OnboardingPageViewController
 }
 
+@MainActor
 final class OnboardingPresenter {
     weak var view: OnboardingViewControllerProtocol?
     var interactor: OnboardingInteractorProtocol
     var router: OnboardingRouterProtocol
+    
     
     init(view: OnboardingViewControllerProtocol? = nil, interactor: OnboardingInteractorProtocol, router: OnboardingRouterProtocol) {
         self.view = view
@@ -27,6 +31,16 @@ final class OnboardingPresenter {
 extension OnboardingPresenter: OnboardingPresenterProtocol {
     func skipOnboarding() {
         interactor.toggleIsOnboardingShowed()
+    }
+    
+    func getPage(index: Int) -> OnboardingPageViewController {
+        guard let data = interactor.getOnboardingPageContentData(index: index) else {
+            return OnboardingPageViewController()
+        }
+        let onboardingPageViewController = OnboardingPageViewController()
+        onboardingPageViewController.pageIndex = index
+        onboardingPageViewController.setupUI(data: data)
+        return onboardingPageViewController
     }
 }
 

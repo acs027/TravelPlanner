@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import FirebaseAuth
 
 @MainActor
 protocol UserProfilePresenterProtocol {

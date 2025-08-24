@@ -23,9 +23,6 @@ let package = Package(
             dependencies: [
                 .product(name: "FirebaseAuth", package: "firebase-ios-sdk")
             ],
-            resources: [
-                   .process("Auth/Resources")
-               ]
         )
     ]
 )

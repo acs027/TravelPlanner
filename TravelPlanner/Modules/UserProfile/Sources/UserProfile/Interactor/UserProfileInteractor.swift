@@ -32,7 +32,6 @@ extension UserProfileInteractor: UserProfileInteractorProtocol {
             output?.didLogout()
         } catch {
             print("Error signing out: \(error.localizedDescription)")
-            // Still call didLogout to handle the UI state
             output?.didLogout()
         }
     }

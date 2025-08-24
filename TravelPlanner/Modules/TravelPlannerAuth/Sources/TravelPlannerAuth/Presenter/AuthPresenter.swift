@@ -6,6 +6,14 @@
 //
 
 
+//MARK: - AuthPresenterProtocol
+@MainActor
+public protocol AuthPresenterProtocol: AnyObject {
+    func toggleAuthMode()
+    func loginTapped(email: String, password: String)
+    func signupTapped(email: String, password: String, passwordConfirmation: String)
+}
+
 public final class AuthPresenter {
     public weak var view: AuthViewProtocol?
     public var interactor: AuthInteractorProtocol
@@ -20,7 +28,8 @@ public final class AuthPresenter {
     }
 }
 
-extension AuthPresenter: AuthPresenterProtocol {    
+//MARK: - AuthPresenter-PresenterProtocol
+extension AuthPresenter: AuthPresenterProtocol {
     public func toggleAuthMode() {
         isSignupMode.toggle()
         view?.updateUIForMode(isSignup: isSignupMode)
@@ -52,6 +61,7 @@ extension AuthPresenter: AuthPresenterProtocol {
     }
 }
 
+//MARK: - AuthPresenter-OutputProtocol
 extension AuthPresenter: AuthInteractorOutputProtocol {
     public func authSucceeded() {
         view?.hideProgress()

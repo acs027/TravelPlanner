@@ -15,17 +15,15 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(path: "../AppResources"),
         .package(url: "https://github.com/firebase/firebase-ios-sdk.git", from: "12.0.0")
     ],
     targets: [
         .target(
             name: "UserProfile",
             dependencies: [
-                "AppResources",
                 .product(name: "FirebaseAuth", package: "firebase-ios-sdk")
             ],
-            resources: [.process("Resources")]
+//            resources: [.process("Resources")]
         )
     ]
 )

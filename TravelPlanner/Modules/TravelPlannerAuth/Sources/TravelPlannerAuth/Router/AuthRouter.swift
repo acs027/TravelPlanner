@@ -12,6 +12,12 @@ public protocol AuthRouterDelegate: AnyObject {
     func authRouterDidAuthenticate()
 }
 
+// MARK: - AuthRouterProtocol
+@MainActor
+public protocol AuthRouterProtocol: AnyObject {
+    func navigateToHome()
+}
+
 public final class AuthRouter: AuthRouterProtocol {
     public weak var viewController: UIViewController?
     public weak var delegate: AuthRouterDelegate?

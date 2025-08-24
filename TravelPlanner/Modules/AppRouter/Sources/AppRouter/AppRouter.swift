@@ -58,6 +58,7 @@ public class AppRouter {
         navigationController.setViewControllers([onboardingViewController], animated: true)
     }
     
+    
     public func showUserProfile() {
         let userProfileViewController = UserProfileRouter.assembleModule(delegate: self)
         navigationController.setViewControllers([userProfileViewController], animated: true)
@@ -108,10 +109,12 @@ extension AppRouter: SplashRouterDelegate {
         if let isOnboardingShowed = UserDefaults.standard.object(forKey: "isOnboardingShowed") as? Bool,
            isOnboardingShowed {
             debugPrint("nav flow")
-            navigationFlow()
+//            navigationFlow()
+            showOnboarding()
             
         } else {
             debugPrint("show onboarding")
+//            showOnboarding()
             showOnboarding()
             
         }

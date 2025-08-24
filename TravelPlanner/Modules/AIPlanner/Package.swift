@@ -25,9 +25,6 @@ let package = Package(
                 "AppResources",
                 "TravelPlannerNetwork"
             ],
-            resources: [
-                .process("Resources")
-            ]
         )
     ]
 )

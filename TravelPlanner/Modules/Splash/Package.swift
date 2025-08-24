@@ -13,18 +13,14 @@ let package = Package(
             targets: ["Splash"]),
     ],
     dependencies: [
-        .package(path: "../AppResources"),
-        .package(path: "../TabBar"),
-        .package(url: "https://github.com/firebase/firebase-ios-sdk.git", from: "12.0.0")
+        .package(path: "../TravelPlannerNetwork"),
     ],
     targets: [
         .target(
             name: "Splash",
             dependencies: [
-                "AppResources", "TabBar",
-                .product(name: "FirebaseAuth", package: "firebase-ios-sdk")
+                "TravelPlannerNetwork",
             ],
-            resources: [.process("Resources")]
         )
     ]
 )

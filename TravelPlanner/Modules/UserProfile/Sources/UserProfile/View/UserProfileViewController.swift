@@ -7,6 +7,10 @@
 
 import UIKit
 
+@MainActor
+protocol UserProfileViewProtocol: AnyObject {
+    func updateUserProfile(user: User?)
+}
 
 final class UserProfileViewController: UIViewController {
     @IBOutlet weak var userImage: UIImageView!
@@ -40,11 +44,6 @@ final class UserProfileViewController: UIViewController {
     @objc private func logoutTapped() {
         presenter.didRequestLogout()
     }
-}
-
-@MainActor
-protocol UserProfileViewProtocol: AnyObject {
-    func updateUserProfile(user: User?)
 }
 
 extension UserProfileViewController: UserProfileViewProtocol {
