@@ -17,11 +17,11 @@ public final class OnboardingViewController: UIViewController {
     
     private lazy var skipButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Continue", for: .normal)
+        button.setTitle("Skip", for: .normal)
         button.titleLabel?.font = .boldSystemFont(ofSize: 18)
         button.layer.cornerRadius = 8
-        button.backgroundColor = .systemBlue
-        button.tintColor = .white
+//        button.backgroundColor = .systemBlue
+        button.tintColor = .systemBlue
         button.addTarget(self, action: #selector(skipTapped), for: .touchUpInside)
         return button
     }()
@@ -71,8 +71,6 @@ public final class OnboardingViewController: UIViewController {
         view.bringSubviewToFront(skipButton)
     }
     
-    
-    
     @objc private func skipTapped() {
         skipOnboarding()
     }
@@ -98,7 +96,10 @@ extension OnboardingViewController: UIPageViewControllerDataSource, UIPageViewCo
         }
         
         if vc.pageIndex < 4 {
-            let pageIndex = vc.pageIndex + 1
+            let pageIndex = (vc.pageIndex % 3) + 1
+            if pageIndex == 3 {
+                self.skipButton.setTitle("Get Started", for: .normal)
+            }
             return presenter.getPage(index: pageIndex)
         } else {
             print("finished")

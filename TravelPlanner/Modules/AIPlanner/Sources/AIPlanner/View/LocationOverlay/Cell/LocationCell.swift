@@ -12,6 +12,7 @@ class LocationCell: UICollectionViewCell {
     static let reuseIdentifier = "LocationCell"
     
     @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var locationSymbol: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     
     override func awakeFromNib() {
@@ -39,6 +40,7 @@ class LocationCell: UICollectionViewCell {
     
     func configure(with location: TravelLocation) {
         titleLabel.text = location.name
+        locationSymbol.image = UIImage(systemName: location.symbol)
     }
     
     override var isHighlighted: Bool {

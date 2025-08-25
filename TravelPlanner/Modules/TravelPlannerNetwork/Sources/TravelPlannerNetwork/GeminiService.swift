@@ -11,7 +11,7 @@ import Foundation
 import FirebaseAI
 
 
-public class GeminiService: @unchecked Sendable {
+public final class GeminiService: @unchecked Sendable {
     
     // MARK: - Singleton
     
@@ -101,7 +101,8 @@ public class GeminiService: @unchecked Sendable {
     /// Creates the analysis prompt for aircraft identification
     /// - Returns: The formatted prompt string
     private func createAnalysisPrompt(location: String) -> String {
-            """
+        let preferredLanguage = Locale.current.identifier
+            return """
             Location is \(location)
 
             You are assisting a travel app user by recommending specific travel locations such as famous landmarks, tourist attractions, or natural wonders — not general cities or countries.
@@ -124,6 +125,7 @@ public class GeminiService: @unchecked Sendable {
             - Coordinates must be **real and accurate**.
             - Descriptions should be informative but concise (1–2 sentences).
             - Ensure the results are relevant to the user's search and diverse in type if possible.
+            -Return content language should be corresponding to this language code: \(preferredLanguage)
 
             """
     }

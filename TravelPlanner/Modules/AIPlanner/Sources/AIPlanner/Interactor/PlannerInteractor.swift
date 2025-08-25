@@ -28,23 +28,20 @@ final class PlannerInteractor {
 }
 
 extension PlannerInteractor: PlannerInteractorProtocol {
-#if DEBUG
-    func fetchTravelLocations(prompt: String) {
-        let fetchedLocations = service.fetchLocalTravelLocations(prompt: prompt)
-        output?.locationsFetched(fetchedLocations)
-    }
-#else
+//#if DEBUG
+//    func fetchTravelLocations(prompt: String) {
+//        let fetchedLocations = service.fetchLocalTravelLocations(prompt: prompt)
+//        output?.locationsFetched(fetchedLocations)
+//    }
+//#else
     func fetchTravelLocations(prompt: String) {
         Task { [weak self] in
             do {
-                let fetchedLocations = await TravelLocationService().fetchTravelLocations(prompt: prompt)
+                let fetchedLocations = try await TravelLocationService().fetchTravelLocations(prompt: prompt)
                 
                 await MainActor.run { [weak output = self?.output] in
                     output?.locationsFetched(fetchedLocations)
                 }
-                
-                // Update locations on background thread
-                self?.locations = fetchedLocations
             } catch {
                 await MainActor.run { [weak output = self?.output] in
                     output?.fetchingFailed(error: error)
@@ -52,7 +49,7 @@ extension PlannerInteractor: PlannerInteractorProtocol {
             }
         }
     }
-#endif
+//#endif
     
     func focusMapOnLocation(_ location: TravelLocation) {
         

@@ -7,6 +7,7 @@
 
 import UIKit
 import AppRouter
+import TravelPlannerNetwork
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -22,6 +23,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Initialize and start the AppRouter
         appRouter = AppRouter(window: window)
         appRouter?.start()
+        ReachabilityManager.shared.startMonitoring()
         
         window.makeKeyAndVisible()
     }

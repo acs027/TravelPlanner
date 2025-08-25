@@ -1,8 +1,8 @@
 //
 //  PlannerViewState.swift
-//  TravelPlanner
+//  AIPlanner
 //
-//  Created by ali cihan on 30.07.2025.
+//  Created by ali cihan on 25.08.2025.
 //
 
 import AppResources

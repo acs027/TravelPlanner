@@ -11,11 +11,9 @@ import MockData
 
 
 public protocol TravelLocationServiceProtocol {
-    func fetchTravelLocations(prompt: String) async -> [TravelLocation]
+    func fetchTravelLocations(prompt: String) async throws -> [TravelLocation]
     func fetchTravelLocations() -> [TravelLocation]
 }
-
-import Foundation
 
 public final class TravelLocationService {
     private let geminiService: GeminiService
@@ -26,13 +24,13 @@ public final class TravelLocationService {
     
     // MARK: - Async/Await
     
-    public func fetchTravelLocations(prompt: String) async -> [TravelLocation] {
+    public func fetchTravelLocations(prompt: String) async throws -> [TravelLocation] {
         do {
             let json = try await geminiService.generateContent(location: prompt)
             return try decodeLocations(from: json)
         } catch {
             print("Failed to fetch locations: \(error)")
-            return []
+            throw error
         }
     }
     
@@ -41,7 +39,6 @@ public final class TravelLocationService {
     
     public func fetchLocalTravelLocations(prompt: String) -> [TravelLocation] {
         do {
-//            guard let url = Bundle.main.url(forResource: "TravelLocations", withExtension: "json") else {
             guard let url = Bundle.mockData.url(forResource: "TravelLocations", withExtension: "json") else {
                 throw NSError(domain: "Local JSON not found", code: 404)
             }
@@ -62,3 +59,6 @@ public final class TravelLocationService {
         return try JSONDecoder().decode([TravelLocation].self, from: data)
     }
 }
+
+
+

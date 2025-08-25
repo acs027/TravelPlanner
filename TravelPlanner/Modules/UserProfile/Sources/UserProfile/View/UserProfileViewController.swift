@@ -33,7 +33,7 @@ final class UserProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        emailContainerView.layer.cornerRadius = emailContainerView.frame.height / 2 // pill shape
+        emailContainerView.layer.cornerRadius = emailContainerView.frame.height / 2
         emailContainerView.layer.masksToBounds = true
         logoutButton.addTarget(self, action: #selector(logoutTapped), for: .touchUpInside)
         presenter.didRequestFetchUsser()

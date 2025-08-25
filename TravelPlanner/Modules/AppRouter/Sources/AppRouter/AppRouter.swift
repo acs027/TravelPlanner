@@ -109,12 +109,10 @@ extension AppRouter: SplashRouterDelegate {
         if let isOnboardingShowed = UserDefaults.standard.object(forKey: "isOnboardingShowed") as? Bool,
            isOnboardingShowed {
             debugPrint("nav flow")
-//            navigationFlow()
-            showOnboarding()
+            navigationFlow()
             
         } else {
             debugPrint("show onboarding")
-//            showOnboarding()
             showOnboarding()
             
         }

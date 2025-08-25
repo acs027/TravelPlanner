@@ -23,6 +23,7 @@
 		08F01B472E54D0B300CED5EF /* TabBar in Frameworks */ = {isa = PBXBuildFile; productRef = 08F01B462E54D0B300CED5EF /* TabBar */; };
 		08F01B4A2E54EFB500CED5EF /* AppRouter in Frameworks */ = {isa = PBXBuildFile; productRef = 08F01B492E54EFB500CED5EF /* AppRouter */; };
 		08F01B4D2E561C6700CED5EF /* Splash in Frameworks */ = {isa = PBXBuildFile; productRef = 08F01B4C2E561C6700CED5EF /* Splash */; };
+		08F01BC62E5BECFE00CED5EF /* AppCheckProvider in Frameworks */ = {isa = PBXBuildFile; productRef = 08F01BC52E5BECFE00CED5EF /* AppCheckProvider */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,8 +34,9 @@
 		0815A14E2E3053DC00BD3417 /* Exceptions for "TravelPlanner" folder in "TravelPlanner" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				App/Info.plist,
+				App/Resources/Info.plist,
 				Modules/AIPlanner,
+				Modules/AppCheckProvider,
 				Modules/AppResources,
 				Modules/AppRouter,
 				Modules/Onboarding,
@@ -74,6 +76,7 @@
 				08D7805F2E40DBCE0039B5D1 /* TravelPlannerAuth in Frameworks */,
 				08F01ACE2E44E86400CED5EF /* GoogleSignInSwift in Frameworks */,
 				08F01B152E4CC38A00CED5EF /* UserProfile in Frameworks */,
+				08F01BC62E5BECFE00CED5EF /* AppCheckProvider in Frameworks */,
 				0815A17A2E30A4BA00BD3417 /* FirebaseAppCheck in Frameworks */,
 				0815A17C2E30A54000BD3417 /* FirebaseCore in Frameworks */,
 				0815A1762E30A4BA00BD3417 /* FirebaseAI in Frameworks */,
@@ -146,6 +149,7 @@
 				08F01B462E54D0B300CED5EF /* TabBar */,
 				08F01B492E54EFB500CED5EF /* AppRouter */,
 				08F01B4C2E561C6700CED5EF /* Splash */,
+				08F01BC52E5BECFE00CED5EF /* AppCheckProvider */,
 			);
 			productName = TravelPlanner;
 			productReference = 0815A13C2E3053D900BD3417 /* TravelPlanner.app */;
@@ -219,7 +223,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = DDYV9BM2N2;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = TravelPlanner/App/Info.plist;
+				INFOPLIST_FILE = TravelPlanner/App/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -250,7 +254,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = DDYV9BM2N2;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = TravelPlanner/App/Info.plist;
+				INFOPLIST_FILE = TravelPlanner/App/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -506,6 +510,10 @@
 		08F01B4C2E561C6700CED5EF /* Splash */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Splash;
+		};
+		08F01BC52E5BECFE00CED5EF /* AppCheckProvider */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AppCheckProvider;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

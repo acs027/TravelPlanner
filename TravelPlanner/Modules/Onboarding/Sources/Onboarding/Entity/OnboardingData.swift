@@ -9,9 +9,24 @@ import Foundation
 
 struct OnboardingPagesData {
     let pagesData : [OnboardingPageInfo] = [
-        OnboardingPageInfo(title: "1", description: "descp", imageName: "image", buttonText: "text"),
-        OnboardingPageInfo(title: "2", description: "descp", imageName: "image", buttonText: "text"),
-        OnboardingPageInfo(title: "3", description: "descp", imageName: "image", buttonText: "text"),
+        OnboardingPageInfo(
+                title: "Discover with AI",
+                description: "Just tell us your dream destination and get a list of must-see touristic spots instantly.",
+                imageName: "onboardingFirstImage",
+                buttonText: "Skip"
+            ),
+            OnboardingPageInfo(
+                title: "Personalized Itineraries",
+                description: "Our AI creates tailored travel plans that fit your style, interests, and time.",
+                imageName: "onboardingFirstImage",
+                buttonText: "Skip"
+            ),
+            OnboardingPageInfo(
+                title: "Explore Smarter",
+                description: "Save places, view maps, and make the most out of your journey with our smart guide.",
+                imageName: "onboardingFirstImage",
+                buttonText: "Get Started"
+            )
     ]
 }
 

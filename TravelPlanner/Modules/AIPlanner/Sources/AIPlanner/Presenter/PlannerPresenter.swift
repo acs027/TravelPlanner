@@ -7,26 +7,40 @@
 
 import Foundation
 import AppResources
+import TravelPlannerNetwork
+import Combine
 
 @MainActor
 protocol PlannerPresenterProtocol {
     func didTapSend(prompt: String)
     func didSelectLocation(_ location: TravelLocation)
-//    func didRequestLogout()
-//    func didRequestSettings()
-//    func didRequestUserProfile()
+    func handleNetworkChange(isConnected: Bool)
 }
 
-
+@MainActor
 final class PlannerPresenter {
     weak var view: PlannerViewProtocol?
     var interactor: PlannerInteractorProtocol
     var router: PlannerRouterProtocol
     
+    private var cancellables = Set<AnyCancellable>()
+    
     init(view: PlannerViewProtocol, interactor: PlannerInteractorProtocol, router: PlannerRouterProtocol) {
         self.view = view
         self.interactor = interactor
         self.router = router
+        observeReachability()
+    }
+    
+    
+    private func observeReachability() {
+        ReachabilityManager.shared.$isConnected
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isConnected in
+                self?.handleNetworkChange(isConnected: isConnected)
+                print(isConnected)
+            }
+            .store(in: &cancellables)
     }
 }
 
@@ -39,21 +53,12 @@ extension PlannerPresenter: PlannerPresenterProtocol {
     func didSelectLocation(_ location: TravelLocation) {
         interactor.focusMapOnLocation(location)
     }
-//    
-//    func didRequestLogout() {
-//        print("🔴 PlannerPresenter: didRequestLogout called")
-//        router.navigateToAuth()
-//    }
     
-//    func didRequestSettings() {
-//        print("⚙️ PlannerPresenter: didRequestSettings called")
-//        router.navigateToSettings()
-//    }
-//    
-//    func didRequestUserProfile() {
-//        print("👤 PlannerPresenter: didRequestUserProfile called")
-//        router.navigateToUserProfile()
-//    }
+    func handleNetworkChange(isConnected: Bool) {
+        if !isConnected {
+            view?.networkError()
+        }
+    }
 }
 
 extension PlannerPresenter: PlannerInteractorOutputProtocol {

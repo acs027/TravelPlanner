@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseCore
 import FirebaseAppCheck
+import AppCheckProvider
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {

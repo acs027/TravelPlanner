@@ -32,22 +32,22 @@
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qdb-7C-YEy" userLabel="emailTitle">
-                    <rect key="frame" x="50" y="435.66666666666669" width="41" height="20.333333333333314"/>
+                    <rect key="frame" x="40" y="435.66666666666669" width="41" height="20.333333333333314"/>
                     <fontDescription key="fontDescription" type="italicSystem" pointSize="17"/>
                     <color key="textColor" systemColor="secondaryLabelColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SiD-ls-brp" userLabel="emailContainerView">
-                    <rect key="frame" x="50" y="466" width="293" height="50"/>
+                    <rect key="frame" x="40" y="466" width="313" height="50"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FlY-4b-qDO">
-                            <rect key="frame" x="5" y="5" width="283" height="40"/>
+                            <rect key="frame" x="15" y="5" width="293" height="40"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="envelope.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="esd-Fx-fmf">
-                            <rect key="frame" x="248" y="7.3333333333333321" width="40" height="36"/>
+                            <rect key="frame" x="258" y="7.3333333333333321" width="40" height="36"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="esd-Fx-fmf" secondAttribute="height" id="OgJ-nt-e7o"/>
                             </constraints>
@@ -60,9 +60,9 @@
                         <constraint firstItem="FlY-4b-qDO" firstAttribute="top" secondItem="SiD-ls-brp" secondAttribute="top" constant="5" id="KYD-0N-uaz"/>
                         <constraint firstAttribute="bottom" secondItem="esd-Fx-fmf" secondAttribute="bottom" constant="5" id="PSt-0Q-SEu"/>
                         <constraint firstAttribute="bottom" secondItem="FlY-4b-qDO" secondAttribute="bottom" constant="5" id="PTP-U5-83q"/>
-                        <constraint firstAttribute="trailing" secondItem="esd-Fx-fmf" secondAttribute="trailing" constant="5" id="Sqc-jj-eee"/>
+                        <constraint firstAttribute="trailing" secondItem="esd-Fx-fmf" secondAttribute="trailing" constant="15" id="Sqc-jj-eee"/>
                         <constraint firstAttribute="height" constant="50" id="Ues-aM-TXS"/>
-                        <constraint firstItem="FlY-4b-qDO" firstAttribute="leading" secondItem="SiD-ls-brp" secondAttribute="leading" constant="5" id="oc3-Ms-YN2"/>
+                        <constraint firstItem="FlY-4b-qDO" firstAttribute="leading" secondItem="SiD-ls-brp" secondAttribute="leading" constant="15" id="oc3-Ms-YN2"/>
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hpa-GD-Q4S" userLabel="displayName">
@@ -82,12 +82,12 @@
             <constraints>
                 <constraint firstItem="Hpa-GD-Q4S" firstAttribute="top" secondItem="53m-tP-Ee2" secondAttribute="bottom" constant="20" id="4Jr-h3-4YW"/>
                 <constraint firstItem="SiD-ls-brp" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="7MA-Km-CF3"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="SiD-ls-brp" secondAttribute="trailing" constant="50" id="Mjg-kd-SmV"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="SiD-ls-brp" secondAttribute="trailing" constant="40" id="Mjg-kd-SmV"/>
                 <constraint firstItem="fJb-EK-2I8" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Occ-Uj-RjD"/>
                 <constraint firstItem="Qdb-7C-YEy" firstAttribute="top" secondItem="Hpa-GD-Q4S" secondAttribute="bottom" constant="20" id="Of6-ta-heh"/>
                 <constraint firstItem="Hpa-GD-Q4S" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="VOB-Sm-iQ1"/>
                 <constraint firstItem="53m-tP-Ee2" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="WOx-WY-hU2"/>
-                <constraint firstItem="SiD-ls-brp" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="50" id="cJk-bf-Kv1"/>
+                <constraint firstItem="SiD-ls-brp" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="40" id="cJk-bf-Kv1"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="fJb-EK-2I8" secondAttribute="bottom" constant="20" id="oOI-DP-DXT"/>
                 <constraint firstItem="Qdb-7C-YEy" firstAttribute="leading" secondItem="SiD-ls-brp" secondAttribute="leading" id="pt7-TG-2PV"/>
                 <constraint firstItem="SiD-ls-brp" firstAttribute="top" secondItem="Qdb-7C-YEy" secondAttribute="bottom" constant="10" id="qMm-64-3GP"/>
@@ -100,10 +100,10 @@
         <image name="envelope.fill" catalog="system" width="128" height="85"/>
         <image name="person.circle" catalog="system" width="128" height="123"/>
         <systemColor name="secondaryLabelColor">
-            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="secondarySystemBackgroundColor">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
