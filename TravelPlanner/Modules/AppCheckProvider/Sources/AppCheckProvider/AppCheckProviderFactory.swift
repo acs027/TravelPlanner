@@ -9,7 +9,7 @@ import Foundation
 import FirebaseAppCheck
 import FirebaseCore
 
-public final class AircraftIdentifierAppCheckProviderFactory: NSObject, AppCheckProviderFactory {
+public final class TravelPlannerAppCheckProviderFactory: NSObject, AppCheckProviderFactory {
   public func createProvider(with app: FirebaseApp) -> AppCheckProvider? {
     #if targetEnvironment(simulator)
       return AppCheckDebugProvider(app: app)
