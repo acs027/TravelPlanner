@@ -11,7 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SplashViewController" customModuleProvider="target">
             <connections>
-                <outlet property="imageView" destination="Mou-90-fhy" id="HJb-Re-Y5d"/>
+                <outlet property="containerView" destination="5gg-Sa-HG1" id="VC5-kb-KW1"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -20,25 +20,26 @@
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Google" translatesAutoresizingMaskIntoConstraints="NO" id="Mou-90-fhy">
-                    <rect key="frame" x="136.66666666666666" y="366" width="119.99999999999997" height="120"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5gg-Sa-HG1">
+                    <rect key="frame" x="50" y="279.66666666666669" width="293" height="293.00000000000006"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="120" id="GyO-rg-TmN"/>
-                        <constraint firstAttribute="width" secondItem="Mou-90-fhy" secondAttribute="height" id="o5C-UD-OzY"/>
+                        <constraint firstAttribute="width" secondItem="5gg-Sa-HG1" secondAttribute="height" id="1jS-OD-ebl"/>
                     </constraints>
-                </imageView>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="Mou-90-fhy" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="7Mu-AM-qng"/>
-                <constraint firstItem="Mou-90-fhy" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="kSx-yW-h68"/>
+                <constraint firstItem="5gg-Sa-HG1" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Zhj-oT-ucQ"/>
+                <constraint firstItem="5gg-Sa-HG1" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="50" id="fD2-v2-7vm"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="5gg-Sa-HG1" secondAttribute="trailing" constant="50" id="w3q-eq-AUx"/>
+                <constraint firstItem="5gg-Sa-HG1" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="yph-t9-R8G"/>
             </constraints>
             <point key="canvasLocation" x="137" y="20"/>
         </view>
     </objects>
     <resources>
-        <image name="Google" width="24" height="24"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

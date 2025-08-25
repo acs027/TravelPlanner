@@ -93,8 +93,8 @@ extension LocationOverlayView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         // Calculate size based on content
         let location = locations[indexPath.item]
-        let font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        let font = UIFont.systemFont(ofSize: 17, weight: .medium)
         let textWidth = location.name.size(withAttributes: [.font: font]).width
-        return CGSize(width: textWidth + 32, height: 40) // Add padding
+        return CGSize(width: textWidth + 50, height: 40) // Add padding
     }
 }

@@ -26,7 +26,9 @@ final class SplashPresenter {
 
 extension SplashPresenter: SplashPresenterProtocol {
     func checkConnection() {
-        interactor.isConnected()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
+                   self?.interactor.isConnected()
+               }
     }
 }
 

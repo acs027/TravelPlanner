@@ -8,6 +8,7 @@
 import UIKit
 import AppResources
 
+@MainActor
 class LocationCell: UICollectionViewCell {
     static let reuseIdentifier = "LocationCell"
     
@@ -17,9 +18,9 @@ class LocationCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        MainActor.assumeIsolated {
-            setupUI()
-        }
+        DispatchQueue.main.async {
+              self.setupUI()
+          }
     }
     
     

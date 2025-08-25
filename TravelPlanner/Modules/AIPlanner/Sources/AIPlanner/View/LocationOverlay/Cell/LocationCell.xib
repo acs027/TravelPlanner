@@ -21,8 +21,11 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Jb-aY-jur">
                         <rect key="frame" x="0.0" y="0.0" width="138" height="50"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Neo-L5-Gp8">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Neo-L5-Gp8">
                                 <rect key="frame" x="50" y="5" width="83" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="7Jr-S6-3yz"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -40,6 +43,7 @@
                             <constraint firstItem="mA3-nZ-pK5" firstAttribute="top" secondItem="8Jb-aY-jur" secondAttribute="top" constant="5" id="76f-QK-6J2"/>
                             <constraint firstAttribute="bottom" secondItem="Neo-L5-Gp8" secondAttribute="bottom" constant="5" id="Mcr-E1-OCA"/>
                             <constraint firstAttribute="trailing" secondItem="Neo-L5-Gp8" secondAttribute="trailing" constant="5" id="PYw-R7-rt2"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="ikT-gF-Q7J"/>
                             <constraint firstItem="Neo-L5-Gp8" firstAttribute="leading" secondItem="mA3-nZ-pK5" secondAttribute="trailing" constant="5" id="jgd-J1-fGK"/>
                             <constraint firstItem="mA3-nZ-pK5" firstAttribute="leading" secondItem="8Jb-aY-jur" secondAttribute="leading" constant="5" id="niM-Wf-dCr"/>
                             <constraint firstAttribute="bottom" secondItem="mA3-nZ-pK5" secondAttribute="bottom" constant="5" id="tat-ss-v8d"/>

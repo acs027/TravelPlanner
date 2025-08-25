@@ -11,6 +11,7 @@
 		0815A1782E30A4BA00BD3417 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 0815A1772E30A4BA00BD3417 /* FirebaseAnalytics */; };
 		0815A17A2E30A4BA00BD3417 /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = 0815A1792E30A4BA00BD3417 /* FirebaseAppCheck */; };
 		0815A17C2E30A54000BD3417 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 0815A17B2E30A54000BD3417 /* FirebaseCore */; };
+		08D252CD2E5CEF290079F746 /* DotLottie in Frameworks */ = {isa = PBXBuildFile; productRef = 08D252CC2E5CEF290079F746 /* DotLottie */; };
 		08D7805F2E40DBCE0039B5D1 /* TravelPlannerAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 08D7805E2E40DBCE0039B5D1 /* TravelPlannerAuth */; };
 		08D780612E43896E0039B5D1 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 08D780602E43896E0039B5D1 /* FirebaseAuth */; };
 		08F01ACC2E44E86400CED5EF /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 08F01ACB2E44E86400CED5EF /* GoogleSignIn */; };
@@ -71,6 +72,7 @@
 				0815A1782E30A4BA00BD3417 /* FirebaseAnalytics in Frameworks */,
 				08F01B472E54D0B300CED5EF /* TabBar in Frameworks */,
 				08F01B4A2E54EFB500CED5EF /* AppRouter in Frameworks */,
+				08D252CD2E5CEF290079F746 /* DotLottie in Frameworks */,
 				08D780612E43896E0039B5D1 /* FirebaseAuth in Frameworks */,
 				08F01ADD2E45171000CED5EF /* AIPlanner in Frameworks */,
 				08D7805F2E40DBCE0039B5D1 /* TravelPlannerAuth in Frameworks */,
@@ -150,6 +152,7 @@
 				08F01B492E54EFB500CED5EF /* AppRouter */,
 				08F01B4C2E561C6700CED5EF /* Splash */,
 				08F01BC52E5BECFE00CED5EF /* AppCheckProvider */,
+				08D252CC2E5CEF290079F746 /* DotLottie */,
 			);
 			productName = TravelPlanner;
 			productReference = 0815A13C2E3053D900BD3417 /* TravelPlanner.app */;
@@ -182,6 +185,7 @@
 			packageReferences = (
 				0815A1742E30A4BA00BD3417 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				08F01ACA2E44E86300CED5EF /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+				08D252CB2E5CEF290079F746 /* XCRemoteSwiftPackageReference "dotlottie-ios" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 0815A13D2E3053D900BD3417 /* Products */;
@@ -429,6 +433,14 @@
 				minimumVersion = 12.0.0;
 			};
 		};
+		08D252CB2E5CEF290079F746 /* XCRemoteSwiftPackageReference "dotlottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/LottieFiles/dotlottie-ios";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		08F01ACA2E44E86300CED5EF /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
@@ -459,6 +471,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0815A1742E30A4BA00BD3417 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseCore;
+		};
+		08D252CC2E5CEF290079F746 /* DotLottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 08D252CB2E5CEF290079F746 /* XCRemoteSwiftPackageReference "dotlottie-ios" */;
+			productName = DotLottie;
 		};
 		08D7805E2E40DBCE0039B5D1 /* TravelPlannerAuth */ = {
 			isa = XCSwiftPackageProductDependency;

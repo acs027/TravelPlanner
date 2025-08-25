@@ -125,7 +125,8 @@ public final class GeminiService: @unchecked Sendable {
             - Coordinates must be **real and accurate**.
             - Descriptions should be informative but concise (1–2 sentences).
             - Ensure the results are relevant to the user's search and diverse in type if possible.
-            -Return content language should be corresponding to this language code: \(preferredLanguage)
+            - Return content language should be corresponding to this language code: \(preferredLanguage)
+            - Be sure SF symbol exist. Do not non-existence SF symbol name. SF Symbols can have duplicate.
 
             """
     }

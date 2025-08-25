@@ -27,14 +27,25 @@ final class PlannerInteractor {
     private var service = TravelLocationService()
 }
 
+extension PlannerInteractor {
+    private func isPromptValid(_ prompt: String) -> Bool {
+        return !prompt.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    }
+}
+
 extension PlannerInteractor: PlannerInteractorProtocol {
-//#if DEBUG
-//    func fetchTravelLocations(prompt: String) {
-//        let fetchedLocations = service.fetchLocalTravelLocations(prompt: prompt)
-//        output?.locationsFetched(fetchedLocations)
-//    }
-//#else
+#if DEBUG
     func fetchTravelLocations(prompt: String) {
+        let fetchedLocations = service.fetchLocalTravelLocations(prompt: prompt)
+        output?.locationsFetched(fetchedLocations)
+    }
+#else
+    func fetchTravelLocations(prompt: String) {
+        
+        if !isPromptValid(prompt) {
+            output?.fetchingFailed(error: PromptError.notValidPrompt)
+            return
+        }
         Task { [weak self] in
             do {
                 let fetchedLocations = try await TravelLocationService().fetchTravelLocations(prompt: prompt)
@@ -49,12 +60,25 @@ extension PlannerInteractor: PlannerInteractorProtocol {
             }
         }
     }
-//#endif
+#endif
     
     func focusMapOnLocation(_ location: TravelLocation) {
         
         output?.focusMapOn(location)
         
+    }
+}
+
+
+enum PromptError: Error, LocalizedError {
+    case notValidPrompt
+    
+    var errorDescription: String? {
+        switch self {
+        case .notValidPrompt:
+            return NSLocalizedString("Not valid prompt",
+                                     comment: "Please check your prompt.")
+        }
     }
 }
 

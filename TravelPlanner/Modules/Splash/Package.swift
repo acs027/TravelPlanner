@@ -14,13 +14,19 @@ let package = Package(
     ],
     dependencies: [
         .package(path: "../TravelPlannerNetwork"),
+        .package(url: "https://github.com/LottieFiles/dotlottie-ios", from: "0.8.7")
     ],
     targets: [
         .target(
             name: "Splash",
             dependencies: [
                 "TravelPlannerNetwork",
+                .product(name: "DotLottie", package: "dotlottie-ios")
             ],
+            resources: [
+                .process("Resources")
+            ]
         )
+        
     ]
 )

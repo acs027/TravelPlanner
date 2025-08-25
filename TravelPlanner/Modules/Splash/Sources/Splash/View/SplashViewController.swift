@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import DotLottie
 
 @MainActor
 protocol SplashViewControllerProtocol: AnyObject {
@@ -13,8 +14,11 @@ protocol SplashViewControllerProtocol: AnyObject {
 }
 
 final class SplashViewController: UIViewController {
-    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var containerView: UIView!
     var presenter: SplashPresenterProtocol!
+    let lottieAnimation = DotLottieAnimation(fileName: "splashLottie", bundle: .module, config: AnimationConfig(autoplay: true, loop: true))
+
+    
     
     public init() {
         let bundle = Bundle.module
@@ -28,7 +32,14 @@ final class SplashViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        imageView.image = .checkmark
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let dotLottieView: UIView = lottieAnimation.view()
+        dotLottieView.frame = containerView.bounds
+        dotLottieView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        containerView.addSubview(dotLottieView)
     }
     
     override func viewDidAppear(_ animated: Bool) {
