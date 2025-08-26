@@ -8,6 +8,7 @@
 import UIKit
 import MapKit
 import AppResources
+import CoreDataManager
 
 @MainActor
 protocol PlannerViewProtocol: AnyObject {
@@ -16,6 +17,7 @@ protocol PlannerViewProtocol: AnyObject {
     func updateState(_ state: PlannerViewState)
     func focusMapOn(_ location: TravelLocation)
     func networkError()
+    func showLocationDetail(_ location: TravelLocation)
 }
 
 @objc(PlannerViewController)
@@ -26,6 +28,11 @@ class PlannerViewController: UIViewController {
     @IBOutlet weak var locationOverlayView: LocationOverlayView!
     @IBOutlet weak var promptTextFieldWidthConstraint: NSLayoutConstraint!
     var presenter: PlannerPresenterProtocol!
+    var foldersVC: FoldersViewController = {
+        let foldersVC = FoldersViewController()
+        return foldersVC
+    }()
+
     
     public init() {
         let bundle = Bundle.module
@@ -57,6 +64,8 @@ class PlannerViewController: UIViewController {
         locationOverlayView.delegate = self
         locationOverlayView.isHidden = true
         mapView.delegate = self
+        
+        foldersVC.delegate = self
         
         promptTextField.alpha = 0
         promptTextFieldWidthConstraint.constant = 0
@@ -105,12 +114,6 @@ class PlannerViewController: UIViewController {
             self.promptTextField.alpha = 0
             self.view.layoutIfNeeded()
         })
-    }
-}
-
-extension PlannerViewController: LocationOverlayViewDelegate {
-    func didSelectLocation(_ location: TravelLocation) {
-        presenter.didSelectLocation(location)
     }
 }
 
@@ -189,13 +192,56 @@ extension PlannerViewController: PlannerViewProtocol {
     }
     
     // MARK: - Network Alert
-        func networkError() {
-            let alert = UIAlertController(title: "Network Error", message: "Check your internet connection and try again.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default))
-            present(alert, animated: true)
-        }
+    func networkError() {
+        let alert = UIAlertController(title: "Network Error", message: "Check your internet connection and try again.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
+    }
+    
+    func showLocationDetail(_ location: TravelLocation) {
+        let detailVC = LocationDetailViewController(location: location)
+        detailVC.delegate = self
+        present(detailVC, animated: true)
+    }
 }
 
+
+//MARK: - LocationOverlayViewDelegate
+extension PlannerViewController: LocationOverlayViewDelegate {
+    func didSelectLocation(_ location: TravelLocation) {
+        presenter.didSelectLocation(location)
+    }
+}
+
+//MARK: - LocationDetailVCDelegate
+extension PlannerViewController: LocationDetailViewDelegate {
+    func showFolders(for location: TravelLocation) {
+        dismiss(animated: true)
+        let folders = presenter.fetchFolders()
+        foldersVC.location = location
+        foldersVC.configure(folders: folders)
+        present(foldersVC, animated: true)
+    }
+}
+
+//MARK: - FoldersViewDelegate
+extension PlannerViewController: FoldersViewDelegate {
+    func delete(folder: Folder) {
+        presenter.delete(folder: folder)
+    }
+    
+    func add(location: TravelLocation, to folder: Folder) {
+        presenter.add(location: location, to: folder)
+    }
+    
+    func createFolder(name: String) {
+        presenter.createFolder(name: name)
+        let folders = presenter.fetchFolders()
+        foldersVC.configure(folders: folders)
+    }   
+}
+
+//MARK: - MKMapViewDelegate
 extension PlannerViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         guard let customAnnotation = annotation as? CustomAnnotation else { return nil }
@@ -213,9 +259,8 @@ extension PlannerViewController: MKMapViewDelegate {
         
         let customView = CustomPinView(icon: UIImage(systemName: customAnnotation.imageName))
         annotationView?.image = customView.asImage()
-
+        
         
         return annotationView
     }
 }
-

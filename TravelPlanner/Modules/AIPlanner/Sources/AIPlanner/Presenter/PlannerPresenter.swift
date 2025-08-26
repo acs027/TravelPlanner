@@ -15,6 +15,10 @@ protocol PlannerPresenterProtocol {
     func didTapSend(prompt: String)
     func didSelectLocation(_ location: TravelLocation)
     func handleNetworkChange(isConnected: Bool)
+    func createFolder(name: String)
+    func fetchFolders() -> [Folder]
+    func add(location: TravelLocation, to folder: Folder)
+    func delete(folder: Folder)
 }
 
 @MainActor
@@ -52,12 +56,29 @@ extension PlannerPresenter: PlannerPresenterProtocol {
     
     func didSelectLocation(_ location: TravelLocation) {
         interactor.focusMapOnLocation(location)
+        view?.showLocationDetail(location)
     }
     
     func handleNetworkChange(isConnected: Bool) {
         if !isConnected {
             view?.networkError()
         }
+    }
+    
+    func createFolder(name: String) {
+        interactor.createFolder(name: name)
+    }
+    
+    func fetchFolders() -> [Folder] {
+        interactor.fetchFolders()
+    }
+    
+    func add(location: TravelLocation, to folder: Folder) {
+        interactor.add(location: location, to: folder)
+    }
+    
+    func delete(folder: Folder) {
+        interactor.delete(folder: folder)
     }
 }
 

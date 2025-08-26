@@ -38,3 +38,6 @@ public struct TravelLocation: Codable, Sendable {
          self.symbol = try container.decode(String.self, forKey: .symbol)
      }
 }
+
+
+

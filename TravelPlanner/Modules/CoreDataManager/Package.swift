@@ -4,29 +4,25 @@
 import PackageDescription
 
 let package = Package(
-    name: "AIPlanner",
-    platforms: [
-        .iOS(.v15)
-    ],
+    name: "CoreDataManager",
     products: [
+        // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
-            name: "AIPlanner",
-            targets: ["AIPlanner"]
-        ),
+            name: "CoreDataManager",
+            targets: ["CoreDataManager"]),
     ],
     dependencies: [
         .package(path: "../AppResources"),
-        .package(path: "../TravelPlannerNetwork"),
-        .package(path: "../CoreDataManager")
     ],
     targets: [
         .target(
-            name: "AIPlanner",
+            name: "CoreDataManager",
             dependencies: [
                 "AppResources",
-                "TravelPlannerNetwork",
-                "CoreDataManager"
             ],
+            resources: [
+                   .process("Sources/CoreDataManager/TravelPlannerDataModel.xcdatamodeld")
+               ],
         )
     ]
 )

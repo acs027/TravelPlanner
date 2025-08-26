@@ -13,6 +13,7 @@
 		0815A17C2E30A54000BD3417 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 0815A17B2E30A54000BD3417 /* FirebaseCore */; };
 		08D252CD2E5CEF290079F746 /* DotLottie in Frameworks */ = {isa = PBXBuildFile; productRef = 08D252CC2E5CEF290079F746 /* DotLottie */; };
 		08D252CF2E5D1AB10079F746 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 08D252CE2E5D1AB10079F746 /* README.md */; };
+		08D253962E5E1CB60079F746 /* CoreDataManager in Frameworks */ = {isa = PBXBuildFile; productRef = 08D253952E5E1CB60079F746 /* CoreDataManager */; };
 		08D7805F2E40DBCE0039B5D1 /* TravelPlannerAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 08D7805E2E40DBCE0039B5D1 /* TravelPlannerAuth */; };
 		08D780612E43896E0039B5D1 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 08D780602E43896E0039B5D1 /* FirebaseAuth */; };
 		08F01ACC2E44E86400CED5EF /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 08F01ACB2E44E86400CED5EF /* GoogleSignIn */; };
@@ -42,6 +43,7 @@
 				Modules/AppCheckProvider,
 				Modules/AppResources,
 				Modules/AppRouter,
+				Modules/CoreDataManager,
 				Modules/Onboarding,
 				Modules/Splash,
 				Modules/TabBar,
@@ -78,6 +80,7 @@
 				08D780612E43896E0039B5D1 /* FirebaseAuth in Frameworks */,
 				08F01ADD2E45171000CED5EF /* AIPlanner in Frameworks */,
 				08D7805F2E40DBCE0039B5D1 /* TravelPlannerAuth in Frameworks */,
+				08D253962E5E1CB60079F746 /* CoreDataManager in Frameworks */,
 				08F01ACE2E44E86400CED5EF /* GoogleSignInSwift in Frameworks */,
 				08F01B152E4CC38A00CED5EF /* UserProfile in Frameworks */,
 				08F01BC62E5BECFE00CED5EF /* AppCheckProvider in Frameworks */,
@@ -156,6 +159,7 @@
 				08F01B4C2E561C6700CED5EF /* Splash */,
 				08F01BC52E5BECFE00CED5EF /* AppCheckProvider */,
 				08D252CC2E5CEF290079F746 /* DotLottie */,
+				08D253952E5E1CB60079F746 /* CoreDataManager */,
 			);
 			productName = TravelPlanner;
 			productReference = 0815A13C2E3053D900BD3417 /* TravelPlanner.app */;
@@ -480,6 +484,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 08D252CB2E5CEF290079F746 /* XCRemoteSwiftPackageReference "dotlottie-ios" */;
 			productName = DotLottie;
+		};
+		08D253952E5E1CB60079F746 /* CoreDataManager */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CoreDataManager;
 		};
 		08D7805E2E40DBCE0039B5D1 /* TravelPlannerAuth */ = {
 			isa = XCSwiftPackageProductDependency;
