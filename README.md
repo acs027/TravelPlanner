@@ -75,20 +75,6 @@ struct TravelLocation: Codable {
 ### Internal Dependencies
 All modules are managed as local Swift packages with clear dependency relationships.
 
-## Setup
-
-### 1. Firebase Configuration
-1. Create a Firebase project at [Firebase Console](https://console.firebase.google.com)
-2. Enable Firebase Authentication
-3. Enable Gemini AI in Firebase
-4. Download `GoogleService-Info.plist` and place it in `App/Resources/`
-
-### 2. Gemini AI Setup
-1. Enable Gemini AI in your Firebase project
-2. Configure API keys and permissions
-3. The app uses Gemini 2.5 Flash model for travel recommendations
-
-
 ## Usage
 
 ### Basic Flow
