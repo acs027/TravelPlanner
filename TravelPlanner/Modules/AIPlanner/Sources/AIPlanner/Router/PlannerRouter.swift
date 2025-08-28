@@ -7,22 +7,22 @@
 
 import Foundation
 import UIKit
+import AppResources
+import Folder
 
 @MainActor
 public protocol PlannerRouterDelegate: AnyObject {
-//    func plannerRouterDidRequestLogout()
-//    func plannerRouterDidRequestSettings()
-//    func plannerRouterDidRequestUserProfile()
 }
 
 @MainActor
-public protocol PlannerRouterProtocol {
-//    func navigateToAuth()
-//    func navigateToSettings()
-//    func navigateToUserProfile()
+protocol PlannerRouterProtocol {
+    func presentFolders(view: PlannerViewProtocol, location: TravelLocation)
+    func presentLocationDetail(from view: PlannerViewProtocol, location: TravelLocation, delegate: LocationDetailViewDelegate?)
+    func presentError(view: PlannerViewProtocol, title: String, message: String)
 }
 
-public class PlannerRouter: PlannerRouterProtocol {
+@MainActor
+public class PlannerRouter {
     public weak var delegate: PlannerRouterDelegate?
     
     public static func assembleModule() -> UIViewController {
@@ -40,20 +40,33 @@ public class PlannerRouter: PlannerRouterProtocol {
         router.delegate = delegate
         return vc
     }
+}
+
+extension PlannerRouter: PlannerRouterProtocol {
+    func presentFolders(view: PlannerViewProtocol, location: AppResources.TravelLocation) {
+        let foldersVC = FoldersRouter.assembleModule(location: location)
+        if let vc = view as? UIViewController {
+            if vc.presentedViewController != nil {
+                vc.dismiss(animated: true)
+            }
+               vc.present(foldersVC, animated: true)
+           }
+    }
+
+    func presentLocationDetail(from view: any PlannerViewProtocol, location: AppResources.TravelLocation, delegate: LocationDetailViewDelegate?) {
+        let detailVC = LocationDetailViewController(location: location)
+        detailVC.delegate = delegate
+        if let vc = view as? UIViewController {
+            vc.present(detailVC, animated: true)
+        }
+    }
     
-//    public func navigateToAuth() {
-//        print("🔴 PlannerRouter: navigateToAuth called, delegate: \(String(describing: delegate))")
-//        delegate?.plannerRouterDidRequestLogout()
-//    }
-    
-//    public func navigateToSettings() {
-//        print("⚙️ PlannerRouter: navigateToSettings called, delegate: \(String(describing: delegate))")
-//        delegate?.plannerRouterDidRequestSettings()
-//    }
-    
-//    public func navigateToUserProfile() {
-//        print("👤 PlannerRouter: navigateToUserProfile called, delegate: \(String(describing: delegate))")
-//        delegate?.plannerRouterDidRequestUserProfile()
-//    }
+    func presentError(view: PlannerViewProtocol, title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        if let vc = view as? UIViewController {
+            vc.present(alert, animated: true)
+           }
+    }
 }
 

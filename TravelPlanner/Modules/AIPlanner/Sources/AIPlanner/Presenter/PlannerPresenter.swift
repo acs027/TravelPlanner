@@ -15,10 +15,9 @@ protocol PlannerPresenterProtocol {
     func didTapSend(prompt: String)
     func didSelectLocation(_ location: TravelLocation)
     func handleNetworkChange(isConnected: Bool)
-    func createFolder(name: String)
-    func fetchFolders() -> [Folder]
-    func add(location: TravelLocation, to folder: Folder)
-    func delete(folder: Folder)
+    func showLocationDetail(location: TravelLocation)
+    func presentError(view: PlannerViewProtocol?, title: String, message: String)
+    func updateState(_ state: PlannerViewState)
 }
 
 @MainActor
@@ -50,51 +49,67 @@ final class PlannerPresenter {
 
 extension PlannerPresenter: PlannerPresenterProtocol {
     func didTapSend(prompt: String) {
-        view?.updateState(.loading)
+        updateState(.loading)
         interactor.fetchTravelLocations(prompt: prompt)
     }
     
     func didSelectLocation(_ location: TravelLocation) {
-        interactor.focusMapOnLocation(location)
-        view?.showLocationDetail(location)
+        view?.focusMapOn(location)
+        showLocationDetail(location: location)
     }
     
     func handleNetworkChange(isConnected: Bool) {
         if !isConnected {
-            view?.networkError()
+            presentError(view: view, title: "Network Error", message: "Check your internet connection and please try again.")
         }
     }
     
-    func createFolder(name: String) {
-        interactor.createFolder(name: name)
+    func showLocationDetail(location: TravelLocation) {
+        guard let view = view else { return }
+        router.presentLocationDetail(from: view, location: location, delegate: self)
     }
     
-    func fetchFolders() -> [Folder] {
-        interactor.fetchFolders()
+    func presentError(view: PlannerViewProtocol?, title: String, message: String) {
+        guard let view = view else { return }
+        router.presentError(view: view, title: title, message: message)
     }
     
-    func add(location: TravelLocation, to folder: Folder) {
-        interactor.add(location: location, to: folder)
-    }
-    
-    func delete(folder: Folder) {
-        interactor.delete(folder: folder)
+    func updateState(_ state: PlannerViewState) {
+        switch state {
+        case .idle:
+            view?.setGenerateButtonEnabled(isEnabled: true)
+        case .loading:
+            view?.setGenerateButtonEnabled(isEnabled: false)
+        case .success(let locations):
+            view?.setGenerateButtonEnabled(isEnabled: true)
+            view?.showLocations(locations)
+            view?.showLocationOverlay(with: locations)
+            view?.collapseTextFieldAnimated()
+        case .failure(let error):
+            view?.setGenerateButtonEnabled(isEnabled: true)
+            presentError(view: view, title: "Error", message: error.localizedDescription)
+        }
+        
     }
 }
 
 extension PlannerPresenter: PlannerInteractorOutputProtocol {
-    func focusMapOn(_ location: TravelLocation) {
-        view?.focusMapOn(location)
-    }
-    
     func locationsFetched(_ locations: [TravelLocation]) {
-        view?.updateState(.success(locations))
+        updateState(.success(locations))
     }
     
     func fetchingFailed(error: Error) {
-        view?.updateState(.failure(error))
+        updateState(.failure(error))
     }
 }
+
+extension PlannerPresenter: LocationDetailViewDelegate {
+    func showFolders(for location: TravelLocation) {
+        guard let view = view else { return }
+        router.presentFolders(view: view, location: location)
+    }
+}
+
 
 
 

@@ -8,16 +8,18 @@
 import UIKit
 import MapKit
 import AppResources
-import CoreDataManager
 
 @MainActor
-protocol PlannerViewProtocol: AnyObject {
-    func showLocations(_ locations: [TravelLocation])
-    func showError(_ message: String)
-    func updateState(_ state: PlannerViewState)
+protocol PlannerViewMapManagerProtocol {
     func focusMapOn(_ location: TravelLocation)
-    func networkError()
-    func showLocationDetail(_ location: TravelLocation)
+    func showLocations(_ locations: [TravelLocation])
+}
+
+@MainActor
+protocol PlannerViewProtocol: AnyObject, PlannerViewMapManagerProtocol {
+    func setGenerateButtonEnabled(isEnabled: Bool)
+    func showLocationOverlay(with locations: [TravelLocation])
+    func collapseTextFieldAnimated()
 }
 
 @objc(PlannerViewController)
@@ -28,11 +30,9 @@ class PlannerViewController: UIViewController {
     @IBOutlet weak var locationOverlayView: LocationOverlayView!
     @IBOutlet weak var promptTextFieldWidthConstraint: NSLayoutConstraint!
     var presenter: PlannerPresenterProtocol!
-    var foldersVC: FoldersViewController = {
-        let foldersVC = FoldersViewController()
-        return foldersVC
-    }()
 
+    private var animationManager: PlannerUIAnimationManagerProtocol?
+    private var mapManager: PlannerMapManagerProtocol?
     
     public init() {
         let bundle = Bundle.module
@@ -60,16 +60,13 @@ class PlannerViewController: UIViewController {
             return
         }
         
+        animationManager = PlannerUIAnimationManager(promptTextField: promptTextField, promptTextFieldWidthConstraint: promptTextFieldWidthConstraint, containerView: view)
+        
+        mapManager = PlannerMapManager(mapView: mapView, delegate: self)
+        
         generateButton.addTarget(self, action: #selector(sendTapped), for: .touchUpInside)
         locationOverlayView.delegate = self
         locationOverlayView.isHidden = true
-        mapView.delegate = self
-        
-        foldersVC.delegate = self
-        
-        promptTextField.alpha = 0
-        promptTextFieldWidthConstraint.constant = 0
-        view.layoutIfNeeded()
     }
     
     @objc private func sendTapped() {
@@ -80,131 +77,41 @@ class PlannerViewController: UIViewController {
         }
     }
     
-    private func showLocationOverlay(with locations: [TravelLocation]) {
+    private func showPromptTextFieldAnimated() {
+        animationManager?.showPromptTextField()
+    }
+    
+    private func expandTextFieldAnimated() {
+        animationManager?.expandTextField()
+    }
+}
+
+extension PlannerViewController: PlannerViewProtocol {
+    func showLocationOverlay(with locations: [TravelLocation]) {
         locationOverlayView.locations = locations
         locationOverlayView.isHidden = false
         view.bringSubviewToFront(locationOverlayView)
     }
     
-    private func showPromptTextFieldAnimated() {
-        promptTextField.isHidden = false
-        promptTextField.alpha = 0
-        UIView.animate(withDuration: 0.4, delay: 0, options: [.curveEaseInOut], animations: {
-            self.promptTextField.alpha = 1
-        })
+    func setGenerateButtonEnabled(isEnabled: Bool) {
+        generateButton.isEnabled = isEnabled
     }
     
-    private func expandTextFieldAnimated() {
-        let screenWidth = UIScreen.main.bounds.size.width
-        let expandedWidth: CGFloat = screenWidth - 80
-        
-        promptTextField.alpha = 0
-        promptTextFieldWidthConstraint.constant = expandedWidth
-        
-        UIView.animate(withDuration: 0.4, delay: 0, options: [.curveEaseInOut], animations: {
-            self.promptTextField.alpha = 1
-            self.view.layoutIfNeeded()
-        })
-    }
-    
-    private func collapseTextFieldAnimated() {
-        promptTextFieldWidthConstraint.constant = 0
-        
-        UIView.animate(withDuration: 0.3, animations: {
-            self.promptTextField.alpha = 0
-            self.view.layoutIfNeeded()
-        })
+    func collapseTextFieldAnimated() {
+        animationManager?.collapseTextField()
     }
 }
 
-extension PlannerViewController: PlannerViewProtocol {
+//MARK: - PlannerViewMapManagerProtocol
+extension PlannerViewController: PlannerViewMapManagerProtocol {
     func showLocations(_ locations: [TravelLocation]) {
-        mapView.removeAnnotations(mapView.annotations)
-        
-        var coordinates: [CLLocationCoordinate2D] = []
-        
-        for location in locations {
-            let annotation = CustomAnnotation(
-                title: location.name,
-                subtitle: location.description,
-                coordinate: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude),
-                imageName: location.symbol
-            )
-            
-            mapView.addAnnotation(annotation)
-            coordinates.append(annotation.coordinate)
-        }
-        
-        // Focus the map on the shown locations
-        if !coordinates.isEmpty {
-            var minLat = coordinates[0].latitude
-            var maxLat = coordinates[0].latitude
-            var minLon = coordinates[0].longitude
-            var maxLon = coordinates[0].longitude
-            
-            for coord in coordinates {
-                minLat = min(minLat, coord.latitude)
-                maxLat = max(maxLat, coord.latitude)
-                minLon = min(minLon, coord.longitude)
-                maxLon = max(maxLon, coord.longitude)
-            }
-            
-            let span = MKCoordinateSpan(
-                latitudeDelta: (maxLat - minLat) * 1.5,
-                longitudeDelta: (maxLon - minLon) * 1.5
-            )
-            let center = CLLocationCoordinate2D(
-                latitude: (minLat + maxLat) / 2,
-                longitude: (minLon + maxLon) / 2
-            )
-            let region = MKCoordinateRegion(center: center, span: span)
-            mapView.setRegion(region, animated: true)
-        }
-    }
-    
-    func updateState(_ state: PlannerViewState) {
-        switch state {
-        case .idle:
-            generateButton.isEnabled = true
-        case .loading:
-            generateButton.isEnabled = false
-        case .success(let locations):
-            generateButton.isEnabled = true
-            showLocations(locations)
-            showLocationOverlay(with: locations)
-            collapseTextFieldAnimated()
-        case .failure(let error):
-            generateButton.isEnabled = true
-            showError(error.localizedDescription)
-        }
-    }
-    
-    func showError(_ message: String) {
-        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        present(alert, animated: true)
+        mapManager?.showLocations(locations)
     }
     
     func focusMapOn(_ location: TravelLocation) {
-        let coordinate = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
-        let region = MKCoordinateRegion(center: coordinate, latitudinalMeters: 1000, longitudinalMeters: 1000)
-        mapView.setRegion(region, animated: true)
-    }
-    
-    // MARK: - Network Alert
-    func networkError() {
-        let alert = UIAlertController(title: "Network Error", message: "Check your internet connection and try again.", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        present(alert, animated: true)
-    }
-    
-    func showLocationDetail(_ location: TravelLocation) {
-        let detailVC = LocationDetailViewController(location: location)
-        detailVC.delegate = self
-        present(detailVC, animated: true)
+        mapManager?.focusOn(location)
     }
 }
-
 
 //MARK: - LocationOverlayViewDelegate
 extension PlannerViewController: LocationOverlayViewDelegate {
@@ -213,54 +120,5 @@ extension PlannerViewController: LocationOverlayViewDelegate {
     }
 }
 
-//MARK: - LocationDetailVCDelegate
-extension PlannerViewController: LocationDetailViewDelegate {
-    func showFolders(for location: TravelLocation) {
-        dismiss(animated: true)
-        let folders = presenter.fetchFolders()
-        foldersVC.location = location
-        foldersVC.configure(folders: folders)
-        present(foldersVC, animated: true)
-    }
-}
-
-//MARK: - FoldersViewDelegate
-extension PlannerViewController: FoldersViewDelegate {
-    func delete(folder: Folder) {
-        presenter.delete(folder: folder)
-    }
-    
-    func add(location: TravelLocation, to folder: Folder) {
-        presenter.add(location: location, to: folder)
-    }
-    
-    func createFolder(name: String) {
-        presenter.createFolder(name: name)
-        let folders = presenter.fetchFolders()
-        foldersVC.configure(folders: folders)
-    }   
-}
-
-//MARK: - MKMapViewDelegate
-extension PlannerViewController: MKMapViewDelegate {
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        guard let customAnnotation = annotation as? CustomAnnotation else { return nil }
-        
-        let identifier = "CustomAnnotation"
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
-        
-        if annotationView == nil {
-            annotationView = MKAnnotationView(annotation: customAnnotation, reuseIdentifier: identifier)
-            annotationView?.canShowCallout = true
-        } else {
-            annotationView?.annotation = customAnnotation
-        }
-        
-        
-        let customView = CustomPinView(icon: UIImage(systemName: customAnnotation.imageName))
-        annotationView?.image = customView.asImage()
-        
-        
-        return annotationView
-    }
+extension PlannerViewController: PlannerMapManagerDelegate {
 }

@@ -17,7 +17,8 @@ let package = Package(
     dependencies: [
         .package(path: "../AppResources"),
         .package(path: "../TravelPlannerNetwork"),
-        .package(path: "../CoreDataManager")
+        .package(path: "../CoreDataManager"),
+        .package(path: "../Folder")
     ],
     targets: [
         .target(
@@ -25,7 +26,8 @@ let package = Package(
             dependencies: [
                 "AppResources",
                 "TravelPlannerNetwork",
-                "CoreDataManager"
+                "CoreDataManager",
+                "Folder"
             ],
         )
     ]

@@ -9,13 +9,12 @@ import UIKit
 import AppResources
 
 @MainActor
-protocol FoldersViewDelegate: AnyObject {
-    func createFolder(name: String)
-    func add(location: TravelLocation, to folder: Folder)
-    func delete(folder: Folder)
+protocol FoldersViewProtocol: AnyObject {
+    func update(folders: [Folder])
 }
 
-class FoldersViewController: UIViewController {
+final class FoldersViewController: UIViewController {
+    var presenter: FoldersPresenterProtocol!
     private var folders: [Folder] = []
     private let collectionView: UICollectionView
     private let createFolderButton: UIButton =  {
@@ -23,7 +22,7 @@ class FoldersViewController: UIViewController {
         button.setTitle("Create new folder", for: .normal)
         return button
     }()
-    weak var delegate: FoldersViewDelegate?
+//    weak var delegate: FoldersViewDelegate?
     var location: TravelLocation?
     
     // MARK: - Init
@@ -82,9 +81,8 @@ class FoldersViewController: UIViewController {
         ])
     }
     
-    func configure(folders: [Folder]) {
-        self.folders = folders
-        self.collectionView.reloadData()
+    override func viewWillAppear(_ animated: Bool) {
+        presenter.didRequestFetchFolders()
     }
     
     @objc private func closeTapped() {
@@ -104,7 +102,7 @@ class FoldersViewController: UIViewController {
             
             let createAction = UIAlertAction(title: "Create", style: .default) { [weak self] _ in
                 if let folderName = alertController.textFields?.first?.text, !folderName.isEmpty {
-                    self?.delegate?.createFolder(name: folderName)
+                    self?.presenter.didRequestCreateFolder(name: folderName)
                 }
             }
             
@@ -136,7 +134,7 @@ class FoldersViewController: UIViewController {
                 let folder = self.folders[indexPath.item]
                 self.folders.remove(at: indexPath.item)
                 self.collectionView.deleteItems(at: [indexPath])
-                self.delegate?.delete(folder: folder)
+                self.presenter.didRequestDelete(folder: folder)
             })
             
             present(alert, animated: true)
@@ -161,7 +159,7 @@ extension FoldersViewController: UICollectionViewDataSource, UICollectionViewDel
         let folder = folders[indexPath.item]
         print("Selected folder: \(folder)")
         if let location = location {
-            self.delegate?.add(location: location, to: folder)
+            self.presenter.didRequestAdd(location: location, to: folder)
         }
         
         // Call your logic to save the location to this folder
@@ -169,4 +167,10 @@ extension FoldersViewController: UICollectionViewDataSource, UICollectionViewDel
     }
 }
 
+extension FoldersViewController: FoldersViewProtocol {
+    func update(folders: [Folder]) {
+        self.folders = folders
+        self.collectionView.reloadData()
+    }
+}
 

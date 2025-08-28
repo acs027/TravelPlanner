@@ -85,9 +85,6 @@ class LocationDetailViewController: UIViewController {
         }
     
     @objc private func addTapped() {
-//        let foldersVC = FoldersViewController(folders: ["acs", "2"])
-//        modalPresentationStyle = .fullScreen
-//        present(foldersVC, animated: true)
         delegate?.showFolders(for: location)
     }
 }

@@ -44,6 +44,7 @@
 				Modules/AppResources,
 				Modules/AppRouter,
 				Modules/CoreDataManager,
+				Modules/Folder,
 				Modules/Onboarding,
 				Modules/Splash,
 				Modules/TabBar,

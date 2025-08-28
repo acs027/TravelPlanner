@@ -50,11 +50,12 @@ extension CoreDataManager {
     }
     
     // Add Location to Folder
-    public func addLocation(_ location: TravelLocation, to folder: FolderEntity) {
+    public func addLocation(_ location: TravelLocation, to folder: Folder) {
+        guard let folderEntity = fetchSpecificFolder(id: folder.id) else { return }
         let entity = LocationEntity(context: context)
         entity.update(from: location)
-        entity.folder = folder
-        let locations = folder.mutableSetValue(forKey: "locations")
+        entity.folder = folderEntity
+        let locations = folderEntity.mutableSetValue(forKey: "locations")
             locations.add(entity)
         saveContext()
     }
@@ -77,8 +78,9 @@ extension CoreDataManager {
         return try? context.fetch(request).first
     }
     
-    public func delete(folder: FolderEntity) {
-        context.delete(folder)
+    public func delete(folder: Folder) {
+        guard let folderEntity = fetchSpecificFolder(id: folder.id) else { return }
+        context.delete(folderEntity)
         saveContext()
     }
     
