@@ -10,20 +10,17 @@ import AppResources
 
 @MainActor
 protocol FoldersViewProtocol: AnyObject {
-    func update(folders: [Folder])
+    func update()
 }
 
 final class FoldersViewController: UIViewController {
     var presenter: FoldersPresenterProtocol!
-    private var folders: [Folder] = []
     private let collectionView: UICollectionView
     private let createFolderButton: UIButton =  {
         let button = UIButton(type: .system)
         button.setTitle("Create new folder", for: .normal)
         return button
     }()
-//    weak var delegate: FoldersViewDelegate?
-    var location: TravelLocation?
     
     // MARK: - Init
     init() {
@@ -86,58 +83,18 @@ final class FoldersViewController: UIViewController {
     }
     
     @objc private func closeTapped() {
-        dismiss(animated: true)
+        presenter.didRequestDismiss()
     }
     
     @objc private func createFolderButtonTapped() {
-        let alertController = UIAlertController(
-                title: "Create new folder",
-                message: nil,
-                preferredStyle: .alert
-            )
-            
-            alertController.addTextField { textField in
-                textField.placeholder = "Folder name"
-            }
-            
-            let createAction = UIAlertAction(title: "Create", style: .default) { [weak self] _ in
-                if let folderName = alertController.textFields?.first?.text, !folderName.isEmpty {
-                    self?.presenter.didRequestCreateFolder(name: folderName)
-                }
-            }
-            
-            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-            
-            alertController.addAction(createAction)
-            alertController.addAction(cancelAction)
-            
-            present(alertController, animated: true)
+        presenter.didRequestCreateFolder()
     }
     
     @objc private func handleLongPress(_ gesture: UILongPressGestureRecognizer) {
         guard gesture.state == .began else { return }
-        
         let point = gesture.location(in: collectionView)
         if let indexPath = collectionView.indexPathForItem(at: point) {
-            let folder = folders[indexPath.item]
-            
-            let alert = UIAlertController(
-                title: "Delete Folder",
-                message: "Are you sure you want to delete '\(folder.name)'?",
-                preferredStyle: .alert
-            )
-            
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-            alert.addAction(UIAlertAction(title: "Delete", style: .destructive) { [weak self] _ in
-                guard let self = self else { return }
-                // Remove from local list
-                let folder = self.folders[indexPath.item]
-                self.folders.remove(at: indexPath.item)
-                self.collectionView.deleteItems(at: [indexPath])
-                self.presenter.didRequestDelete(folder: folder)
-            })
-            
-            present(alert, animated: true)
+            self.presenter.didRequestDelete(at: indexPath.item)
         }
     }
 }
@@ -146,30 +103,25 @@ final class FoldersViewController: UIViewController {
 extension FoldersViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        folders.count
+        presenter.foldersCount
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FolderCell", for: indexPath) as! FolderCell
-        cell.configure(with: folders[indexPath.item].name)
+        cell.configure(with: presenter.folder(at: indexPath.item).name)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let folder = folders[indexPath.item]
+        let folder = presenter.folder(at: indexPath.item)
         print("Selected folder: \(folder)")
-        if let location = location {
-            self.presenter.didRequestAdd(location: location, to: folder)
-        }
-        
-        // Call your logic to save the location to this folder
+        presenter.didRequestAdd(to: folder)
         dismiss(animated: true)
     }
 }
 
 extension FoldersViewController: FoldersViewProtocol {
-    func update(folders: [Folder]) {
-        self.folders = folders
+    func update() {
         self.collectionView.reloadData()
     }
 }

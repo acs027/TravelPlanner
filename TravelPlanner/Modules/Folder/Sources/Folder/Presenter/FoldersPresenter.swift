@@ -10,10 +10,13 @@ import AppResources
 
 @MainActor
 protocol FoldersPresenterProtocol {
-    func didRequestCreateFolder(name: String)
-    func didRequestAdd(location: TravelLocation, to folder: Folder)
-    func didRequestDelete(folder: Folder)
+    func didRequestCreateFolder()
+    func didRequestAdd(to folder: Folder)
+    func didRequestDelete(at index: Int)
     func didRequestFetchFolders()
+    var foldersCount: Int { get }
+    func folder(at index: Int) -> Folder
+    func didRequestDismiss()
 }
 
 final class FoldersPresenter {
@@ -21,6 +24,7 @@ final class FoldersPresenter {
     var interactor: FoldersInteractorProtocol
     var router: FoldersRouterProtocol
     var location: TravelLocation?
+    var folders: [Folder] = []
     
     init(view: FoldersViewProtocol? = nil, interactor: FoldersInteractorProtocol, router: FoldersRouterProtocol, location: TravelLocation) {
         self.view = view
@@ -31,25 +35,47 @@ final class FoldersPresenter {
 }
 
 extension FoldersPresenter: FoldersPresenterProtocol {
+    func didRequestDismiss() {
+        guard let view = view else { return }
+        router.dismissFolders(view: view)
+    }
+    
+    func folder(at index: Int) -> Folder {
+        folders[index]
+    }
+    
+    var foldersCount: Int { folders.count }
+    
     func didRequestFetchFolders() {
         interactor.fetchFolders()
     }
     
-    func didRequestCreateFolder(name: String) {
-        interactor.createFolder(name: name)
+    func didRequestCreateFolder() {
+        guard let view = view else { return }
+        router.presentCreateFolderAlert(view: view) { [weak self] folderName in
+                  guard let self = self else { return }
+                  self.interactor.createFolder(name: folderName)
+              }
     }
     
-    func didRequestAdd(location: AppResources.TravelLocation, to folder: AppResources.Folder) {
+    func didRequestAdd(to folder: AppResources.Folder) {
+        guard let location = location else { return }
         interactor.add(location: location, to: folder)
     }
     
-    func didRequestDelete(folder: AppResources.Folder) {
-        interactor.delete(folder: folder)
+    func didRequestDelete(at index: Int) {
+        guard let view = view else { return }
+        let folder = folders.remove(at: index)
+        router.presentDeleteConfirmation(view: view, for: folder) { [weak self] confirmed in
+            guard let self = self, confirmed else { return }
+            self.interactor.delete(folder: folder)
+        }
     }
 }
 
 extension FoldersPresenter: FoldersInteractorOutputProtocol {
     func update(folders: [AppResources.Folder]) {
-        view?.update(folders: folders)
+        self.folders = folders
+        view?.update()
     }
 }

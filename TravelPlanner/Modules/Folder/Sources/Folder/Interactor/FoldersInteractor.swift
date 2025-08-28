@@ -31,10 +31,12 @@ final class FoldersInteractor {
 extension FoldersInteractor: FoldersInteractorProtocol {
     func add(location: TravelLocation, to folder: Folder) {
         folderRepository.add(location: location, to: folder)
+        fetchFolders()
     }
     
     func delete(folder: Folder) {
         folderRepository.delete(folder: folder)
+        fetchFolders()
     }
     
     func fetchFolders() {
