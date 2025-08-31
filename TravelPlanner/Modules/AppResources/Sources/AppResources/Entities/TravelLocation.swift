@@ -27,6 +27,16 @@ public struct TravelLocation: Codable, Sendable {
         self.type = type
     }
     
+    public init(id: UUID, name: String, description: String, latitude: Double, longitude: Double, symbol: String, type: String) {
+        self.id = id.uuidString
+        self.name = name
+        self.description = description
+        self.latitude = latitude
+        self.longitude = longitude
+        self.symbol = symbol
+        self.type = type
+    }
+    
     public init(from decoder: Decoder) throws {
          let container = try decoder.container(keyedBy: CodingKeys.self)
          self.id = UUID().uuidString

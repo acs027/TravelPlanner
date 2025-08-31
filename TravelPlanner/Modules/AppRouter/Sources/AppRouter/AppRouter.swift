@@ -12,6 +12,7 @@ import FirebaseAuth
 import TabBar
 import Splash
 import Onboarding
+import Folder
 
 @MainActor
 public class AppRouter {
@@ -85,7 +86,8 @@ public class AppRouter {
         if isUserAuthenticated() {
             tabBar()
         } else {
-            showAuth()
+            tabBar()
+//            showAuth()
         }
     }
 }

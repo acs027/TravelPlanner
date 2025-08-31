@@ -13,13 +13,14 @@ let package = Package(
     ],
     dependencies: [
         .package(path: "../AIPlanner"),
-        .package(path: "../UserProfile")
+        .package(path: "../UserProfile"),
+        .package(path: "../Folder")
     ],
     targets: [
         .target(
             name: "TabBar",
             dependencies: [
-                "AIPlanner", "UserProfile"
+                "AIPlanner", "UserProfile", "Folder"
             ]
         )
     ]

@@ -11,12 +11,13 @@ import AppResources
 @MainActor
 protocol FoldersPresenterProtocol {
     func didRequestCreateFolder()
-    func didRequestAdd(to folder: Folder)
+    func didRequestAdd(location: TravelLocation, to folder: Folder)
     func didRequestDelete(at index: Int)
     func didRequestFetchFolders()
     var foldersCount: Int { get }
     func folder(at index: Int) -> Folder
     func didRequestDismiss()
+    func didSelectFolder(folder: Folder)
 }
 
 final class FoldersPresenter {
@@ -26,7 +27,7 @@ final class FoldersPresenter {
     var location: TravelLocation?
     var folders: [Folder] = []
     
-    init(view: FoldersViewProtocol? = nil, interactor: FoldersInteractorProtocol, router: FoldersRouterProtocol, location: TravelLocation) {
+    init(view: FoldersViewProtocol? = nil, interactor: FoldersInteractorProtocol, router: FoldersRouterProtocol, location: TravelLocation?) {
         self.view = view
         self.interactor = interactor
         self.router = router
@@ -35,6 +36,15 @@ final class FoldersPresenter {
 }
 
 extension FoldersPresenter: FoldersPresenterProtocol {
+    func didSelectFolder(folder: AppResources.Folder) {
+        if let location = location {
+            didRequestAdd(location: location, to: folder)
+        } else {
+            guard let view = view else { return }
+            router.navigateToFolderContent(view: view, for: folder)
+        }
+    }
+    
     func didRequestDismiss() {
         guard let view = view else { return }
         router.dismissFolders(view: view)
@@ -58,9 +68,10 @@ extension FoldersPresenter: FoldersPresenterProtocol {
               }
     }
     
-    func didRequestAdd(to folder: AppResources.Folder) {
-        guard let location = location else { return }
+    func didRequestAdd(location: TravelLocation, to folder: AppResources.Folder) {
         interactor.add(location: location, to: folder)
+        guard let view = view else { return }
+        router.dismissFolders(view: view)
     }
     
     func didRequestDelete(at index: Int) {

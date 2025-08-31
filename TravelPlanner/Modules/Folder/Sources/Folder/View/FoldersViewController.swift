@@ -17,7 +17,7 @@ final class FoldersViewController: UIViewController {
     var presenter: FoldersPresenterProtocol!
     private let collectionView: UICollectionView
     private let createFolderButton: UIButton =  {
-        let button = UIButton(type: .system)
+        let button = UIButton(type: .contactAdd)
         button.setTitle("Create new folder", for: .normal)
         return button
     }()
@@ -35,7 +35,7 @@ final class FoldersViewController: UIViewController {
         self.collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         super.init(nibName: nil, bundle: nil)
         
-        modalPresentationStyle = .fullScreen
+//        modalPresentationStyle = .fullScreen
     }
     
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
@@ -70,8 +70,11 @@ final class FoldersViewController: UIViewController {
             collectionView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            collectionView.heightAnchor.constraint(equalToConstant: 300),
-            createFolderButton.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 20),
+//            collectionView.heightAnchor.constraint(equalToConstant: 300),
+            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: createFolderButton.topAnchor),
+            createFolderButton.topAnchor.constraint(equalTo: collectionView.bottomAnchor),
+            createFolderButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
             createFolderButton.widthAnchor.constraint(equalToConstant: 100),
             createFolderButton.heightAnchor.constraint(equalToConstant: 100)
             
@@ -115,8 +118,7 @@ extension FoldersViewController: UICollectionViewDataSource, UICollectionViewDel
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let folder = presenter.folder(at: indexPath.item)
         print("Selected folder: \(folder)")
-        presenter.didRequestAdd(to: folder)
-        dismiss(animated: true)
+        presenter.didSelectFolder(folder: folder)
     }
 }
 

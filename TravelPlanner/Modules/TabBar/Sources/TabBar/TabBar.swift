@@ -4,6 +4,7 @@
 import UIKit
 import AIPlanner
 import UserProfile
+import Folder
 
 @MainActor
 public protocol TabBarControllerDelegate: PlannerRouterDelegate, UserProfileRouterDelegate {
@@ -40,8 +41,11 @@ private extension TabBarController {
         let userProfileVC = UserProfileRouter.assembleModule(delegate: routerDelegate)
         let userProfileNavigationController = getStyledNavigationController(with: userProfileVC, title:"Profile", image: UIImage(systemName: "person.circle.fill")!)
         
+        let foldersVC = FoldersRouter.assembleModule()
+        let foldersNavigationController = getStyledNavigationController(with: foldersVC, title: "Folders", image: UIImage(systemName: "folder")!)
         
-        viewControllers = [plannerNavigationController, userProfileNavigationController]
+        
+        viewControllers = [plannerNavigationController, userProfileNavigationController, foldersNavigationController]
         customizeTabBarAppearance()
     }
     

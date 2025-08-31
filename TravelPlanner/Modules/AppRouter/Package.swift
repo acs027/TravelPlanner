@@ -19,6 +19,7 @@ let package = Package(
         .package(path: "../TabBar"),
         .package(path: "../Splash"),
         .package(path: "../Onboarding"),
+        .package(path: "../Folder"),
         .package(url: "https://github.com/firebase/firebase-ios-sdk.git", from: "12.0.0")
     ],
     targets: [
@@ -31,6 +32,7 @@ let package = Package(
                 "TabBar",
                 "Splash",
                 "Onboarding",
+                "Folder",
                 .product(name: "FirebaseAuth", package: "firebase-ios-sdk")
             ]
         )

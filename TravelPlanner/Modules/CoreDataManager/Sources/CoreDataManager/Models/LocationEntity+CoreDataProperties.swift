@@ -16,7 +16,7 @@ extension LocationEntity {
         return NSFetchRequest<LocationEntity>(entityName: "LocationEntity")
     }
 
-    @NSManaged public var id: UUID?
+    @NSManaged public var id: UUID
     @NSManaged public var name: String?
     @NSManaged public var locationDescription: String?
     @NSManaged public var latitude: Double

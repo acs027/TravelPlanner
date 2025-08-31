@@ -3,6 +3,18 @@ import CoreData
 import AppResources
 
 @MainActor
+protocol CoreDataManagerProtocol {
+    func createFolder(name: String)
+    func addLocation(_ location: LocationEntity, to folder: FolderEntity)
+    func fetchFolders() -> [FolderEntity]
+    func delete(folder: FolderEntity)
+    func fetchLocations(in folder: FolderEntity) -> [LocationEntity]
+    func deleteLocation(location: LocationEntity)
+    func fetchSpecificFolder(id: String) -> FolderEntity?
+}
+
+
+@MainActor
 public final class CoreDataManager {
     public static let shared = CoreDataManager()
 
@@ -37,60 +49,61 @@ public final class CoreDataManager {
     }
 }
 
-extension CoreDataManager {
-    
-    // Create Folder
-    public func createFolder(name: String) -> FolderEntity {
-        let folder = FolderEntity(context: context)
-        folder.id = UUID()
-        folder.name = name
-        folder.locations = []
-        saveContext()
-        return folder
+extension CoreDataManager: CoreDataManagerProtocol {
+    func createFolder(name: String) {
+        
     }
     
-    // Add Location to Folder
-    public func addLocation(_ location: TravelLocation, to folder: Folder) {
-        guard let folderEntity = fetchSpecificFolder(id: folder.id) else { return }
-        let entity = LocationEntity(context: context)
-        entity.update(from: location)
-        entity.folder = folderEntity
-        let locations = folderEntity.mutableSetValue(forKey: "locations")
-            locations.add(entity)
+    func addLocation(_ location: LocationEntity, to folder: FolderEntity) {
+        location.folder = folder
+        let locations = folder.mutableSetValue(forKey: "locations")
+            locations.add(location)
         saveContext()
     }
-
-    // Fetch Folders
-    public func fetchFolders() -> [FolderEntity] {
-        let request: NSFetchRequest<FolderEntity> = FolderEntity.fetchRequest()
-        return (try? context.fetch(request)) ?? []
+    
+    func delete(folder: FolderEntity) {
+        context.delete(folder)
+        saveContext()
     }
     
-    // Fetch specific Folder by id
-    public func fetchSpecificFolder(id: String) -> FolderEntity? {
+    func fetchLocations(in folder: FolderEntity) -> [LocationEntity] {
+        guard let locations = folder.locations as? Set<LocationEntity> else {
+              return []
+          }
+        return locations.map { $0 }
+    }
+    
+    func deleteLocation(location: LocationEntity) {
+        context.delete(location)
+        saveContext()
+    }
+    
+    func fetchSpecificFolder(id: String) -> FolderEntity? {
         guard let uuid = UUID(uuidString: id) else {
                return nil // invalid UUID string
            }
         let request: NSFetchRequest<FolderEntity> = FolderEntity.fetchRequest()
         request.predicate = NSPredicate(format: "id == %@", uuid as CVarArg)
         request.fetchLimit = 1
+
+        return try? context.fetch(request).first
+    }
+    
+    func fetchLocation(by id: String) -> LocationEntity? {
+        guard let uuid = UUID(uuidString: id) else {
+            return nil
+        }
+        let request: NSFetchRequest<LocationEntity> = LocationEntity.fetchRequest()
+        request.predicate = NSPredicate(format: "id = %@", uuid as CVarArg)
+        request.fetchLimit = 1
         
         return try? context.fetch(request).first
     }
     
-    public func delete(folder: Folder) {
-        guard let folderEntity = fetchSpecificFolder(id: folder.id) else { return }
-        context.delete(folderEntity)
-        saveContext()
-    }
-    
-
-    // Fetch Locations in Folder
-    public func fetchLocations(in folder: FolderEntity) -> [TravelLocation] {
-        guard let locations = folder.locations as? Set<LocationEntity> else {
-              return []
-          }
-          return locations.map { $0.toDomain() }
+    // Fetch Folders
+    func fetchFolders() -> [FolderEntity] {
+        let request: NSFetchRequest<FolderEntity> = FolderEntity.fetchRequest()
+        return (try? context.fetch(request)) ?? []
     }
 }
 

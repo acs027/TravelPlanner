@@ -11,6 +11,7 @@ import AppResources
 extension LocationEntity {
     func toDomain() -> TravelLocation {
         return TravelLocation(
+            id: self.id,
             name: self.name ?? "unknown",
             description: self.locationDescription ?? "",
             latitude: self.latitude,
@@ -34,7 +35,7 @@ extension LocationEntity {
 
 extension FolderEntity {
     func toDomain() -> Folder {
-        return Folder(id: self.id!.uuidString, name: self.name!)
+        return Folder(id: self.id.uuidString, name: self.name!)
     }
 
     func update(from folder: Folder) {

@@ -8,18 +8,23 @@
 import Foundation
 import AppResources
 import UIKit
+import FolderDetail
 
 @MainActor
 protocol FoldersRouterProtocol {
     func presentDeleteConfirmation(view: FoldersViewProtocol, for folder: Folder, completion: @escaping (Bool) -> Void)
     func presentCreateFolderAlert(view: FoldersViewProtocol, completion: @escaping (String) -> Void)
     func dismissFolders(view: FoldersViewProtocol)
+    func navigateToFolderContent(view: FoldersViewProtocol, for folder: Folder)
 }
 
 @MainActor
 public final class FoldersRouter {
+    public static func assembleModule() -> UIViewController {
+        return assembleModule(location: nil)
+    }
     public static func assembleModule(
-           location: TravelLocation,
+           location: TravelLocation?
        ) -> UIViewController {
            let vc = FoldersViewController()
            let interactor = FoldersInteractor()
@@ -70,4 +75,12 @@ extension FoldersRouter: FoldersRouterProtocol {
             vc.dismiss(animated: true)
            }
        }
+    
+    func navigateToFolderContent(view: FoldersViewProtocol, for folder: Folder) {
+        print("Navigating to content of folder: \(folder.name)")
+        let folderContentVC = FolderDetailRouter.build(with: folder)
+        if let vc = view as? UIViewController {
+            vc.navigationController?.pushViewController(folderContentVC, animated: true)
+        }
+    }
 }

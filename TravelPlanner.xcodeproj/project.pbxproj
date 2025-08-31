@@ -11,6 +11,7 @@
 		0815A1782E30A4BA00BD3417 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 0815A1772E30A4BA00BD3417 /* FirebaseAnalytics */; };
 		0815A17A2E30A4BA00BD3417 /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = 0815A1792E30A4BA00BD3417 /* FirebaseAppCheck */; };
 		0815A17C2E30A54000BD3417 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 0815A17B2E30A54000BD3417 /* FirebaseCore */; };
+		08AAF4B02E63E90C0003FC78 /* FolderDetail in Frameworks */ = {isa = PBXBuildFile; productRef = 08AAF4AF2E63E90C0003FC78 /* FolderDetail */; };
 		08D252CD2E5CEF290079F746 /* DotLottie in Frameworks */ = {isa = PBXBuildFile; productRef = 08D252CC2E5CEF290079F746 /* DotLottie */; };
 		08D252CF2E5D1AB10079F746 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 08D252CE2E5D1AB10079F746 /* README.md */; };
 		08D253962E5E1CB60079F746 /* CoreDataManager in Frameworks */ = {isa = PBXBuildFile; productRef = 08D253952E5E1CB60079F746 /* CoreDataManager */; };
@@ -45,6 +46,7 @@
 				Modules/AppRouter,
 				Modules/CoreDataManager,
 				Modules/Folder,
+				Modules/FolderDetail,
 				Modules/Onboarding,
 				Modules/Splash,
 				Modules/TabBar,
@@ -87,6 +89,7 @@
 				08F01BC62E5BECFE00CED5EF /* AppCheckProvider in Frameworks */,
 				0815A17A2E30A4BA00BD3417 /* FirebaseAppCheck in Frameworks */,
 				0815A17C2E30A54000BD3417 /* FirebaseCore in Frameworks */,
+				08AAF4B02E63E90C0003FC78 /* FolderDetail in Frameworks */,
 				0815A1762E30A4BA00BD3417 /* FirebaseAI in Frameworks */,
 				08F01ACC2E44E86400CED5EF /* GoogleSignIn in Frameworks */,
 				08F01AD72E45116600CED5EF /* AppResources in Frameworks */,
@@ -161,6 +164,7 @@
 				08F01BC52E5BECFE00CED5EF /* AppCheckProvider */,
 				08D252CC2E5CEF290079F746 /* DotLottie */,
 				08D253952E5E1CB60079F746 /* CoreDataManager */,
+				08AAF4AF2E63E90C0003FC78 /* FolderDetail */,
 			);
 			productName = TravelPlanner;
 			productReference = 0815A13C2E3053D900BD3417 /* TravelPlanner.app */;
@@ -480,6 +484,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0815A1742E30A4BA00BD3417 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseCore;
+		};
+		08AAF4AF2E63E90C0003FC78 /* FolderDetail */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FolderDetail;
 		};
 		08D252CC2E5CEF290079F746 /* DotLottie */ = {
 			isa = XCSwiftPackageProductDependency;
