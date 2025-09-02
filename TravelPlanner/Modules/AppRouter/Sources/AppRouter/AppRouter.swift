@@ -86,8 +86,7 @@ public class AppRouter {
         if isUserAuthenticated() {
             tabBar()
         } else {
-            tabBar()
-//            showAuth()
+            showAuth()
         }
     }
 }

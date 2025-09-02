@@ -16,15 +16,17 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/firebase/firebase-ios-sdk.git", from: "12.0.0"),
-        .package(path: "../AppResources"),
-        .package(path: "../MockData")
+        .package(path: "../AppResources")
     ],
     targets: [
         .target(
             name: "TravelPlannerNetwork",
             dependencies: [
                 .product(name: "FirebaseAI", package: "firebase-ios-sdk"),
-                "AppResources", "MockData"
+                "AppResources"
+            ],
+            resources: [
+                .process("TravelLocations.json")
             ]
         )
     ]

@@ -37,8 +37,6 @@ final class UserProfileViewController: UIViewController {
         emailContainerView.layer.masksToBounds = true
         logoutButton.addTarget(self, action: #selector(logoutTapped), for: .touchUpInside)
         presenter.didRequestFetchUsser()
-
-        // Do any additional setup after loading the view.
     }
     
     @objc private func logoutTapped() {

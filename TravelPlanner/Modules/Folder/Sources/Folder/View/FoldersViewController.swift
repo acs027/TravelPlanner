@@ -15,71 +15,73 @@ protocol FoldersViewProtocol: AnyObject {
 
 final class FoldersViewController: UIViewController {
     var presenter: FoldersPresenterProtocol!
+    
     private let collectionView: UICollectionView
-    private let createFolderButton: UIButton =  {
-        let button = UIButton(type: .contactAdd)
-        button.setTitle("Create new folder", for: .normal)
+    private let createFolderButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.backgroundColor = UIColor.systemBlue
+        button.setTitle("+", for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 32, weight: .bold)
+        button.tintColor = .white
+        button.layer.cornerRadius = 30
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOpacity = 0.3
+        button.layer.shadowOffset = CGSize(width: 0, height: 3)
         return button
     }()
     
-    // MARK: - Init
     init() {
-        // Create a grid layout
         let layout = UICollectionViewFlowLayout()
-        let itemWidth = UIScreen.main.bounds.width / 3 - 20 // 3 columns with spacing
+        let padding: CGFloat = 16
+        let itemWidth = (UIScreen.main.bounds.width - (padding * 4)) / 3
         layout.itemSize = CGSize(width: itemWidth, height: itemWidth)
-        layout.minimumLineSpacing = 12
-        layout.minimumInteritemSpacing = 12
-        layout.sectionInset = UIEdgeInsets(top: 20, left: 12, bottom: 20, right: 12)
+        layout.minimumLineSpacing = padding
+        layout.minimumInteritemSpacing = padding
+        layout.sectionInset = UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding)
         
         self.collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         super.init(nibName: nil, bundle: nil)
-        
-//        modalPresentationStyle = .fullScreen
     }
     
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     
-    // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Dim background
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.3)
         
-        // Configure collection view
-        collectionView.backgroundColor = .white
-        collectionView.layer.cornerRadius = 12
+        // Collection View
+        collectionView.backgroundColor = .systemBackground
+        collectionView.layer.cornerRadius = 16
         collectionView.register(FolderCell.self, forCellWithReuseIdentifier: "FolderCell")
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        
         view.addSubview(collectionView)
         
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:)))
         collectionView.addGestureRecognizer(longPress)
         
         
+        // Create Folder Button
         createFolderButton.addTarget(self, action: #selector(createFolderButtonTapped), for: .touchUpInside)
         createFolderButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(createFolderButton)
         
         // Layout
         NSLayoutConstraint.activate([
-            collectionView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-//            collectionView.heightAnchor.constraint(equalToConstant: 300),
-            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: createFolderButton.topAnchor),
-            createFolderButton.topAnchor.constraint(equalTo: collectionView.bottomAnchor),
-            createFolderButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
-            createFolderButton.widthAnchor.constraint(equalToConstant: 100),
-            createFolderButton.heightAnchor.constraint(equalToConstant: 100)
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -80),
             
+            createFolderButton.widthAnchor.constraint(equalToConstant: 60),
+            createFolderButton.heightAnchor.constraint(equalToConstant: 60),
+            createFolderButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
+            createFolderButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -24)
         ])
     }
+
     
     override func viewWillAppear(_ animated: Bool) {
         presenter.didRequestFetchFolders()
