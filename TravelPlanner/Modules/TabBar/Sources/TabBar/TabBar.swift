@@ -35,25 +35,30 @@ private extension TabBarController {
         
         /// AIPlannerViewController
         let plannerVC = PlannerRouter.assembleModule(delegate: routerDelegate)
-        let plannerNavigationController = getStyledNavigationController(with: plannerVC, title: "AI Planner", image: UIImage(systemName: "point.topright.arrow.triangle.backward.to.point.bottomleft.filled.scurvepath")!)
+        let plannerNavigationController = getStyledNavigationController(with: plannerVC, title: "AI Planner", image: UIImage(systemName: "point.topright.arrow.triangle.backward.to.point.bottomleft.scurvepath")!, selectedImage: UIImage(systemName: "point.topright.arrow.triangle.backward.to.point.bottomleft.scurvepath.fill"))
         
         /// UserProfileViewController
         let userProfileVC = UserProfileRouter.assembleModule(delegate: routerDelegate)
-        let userProfileNavigationController = getStyledNavigationController(with: userProfileVC, title:"Profile", image: UIImage(systemName: "person.circle.fill")!)
+        let userProfileNavigationController = getStyledNavigationController(with: userProfileVC, title:"Profile", image: UIImage(systemName: "person.circle")!, selectedImage: UIImage(systemName: "person.circle.fill"))
         
         let foldersVC = FoldersRouter.assembleModule()
-        let foldersNavigationController = getStyledNavigationController(with: foldersVC, title: "Folders", image: UIImage(systemName: "folder")!)
+        let foldersNavigationController = getStyledNavigationController(with: foldersVC, title: "Folders", image: UIImage(systemName: "folder")!, selectedImage: UIImage(systemName: "folder.fill"))
         
         
-        viewControllers = [plannerNavigationController, userProfileNavigationController, foldersNavigationController]
+        viewControllers = [plannerNavigationController, foldersNavigationController, userProfileNavigationController]
         customizeTabBarAppearance()
     }
     
-    final func getStyledNavigationController(with viewController: UIViewController, title: String, image: UIImage) -> UINavigationController {
+    final func getStyledNavigationController(with viewController: UIViewController, title: String, image: UIImage, selectedImage: UIImage? = nil) -> UINavigationController {
         viewController.title = title
         let navigationController = UINavigationController(rootViewController: viewController)
         let resizedImage = UIImage.resizeImage(image: image, targetSize:  CGSize(width: 35, height: 35))?.withRenderingMode(.alwaysOriginal)
-        navigationController.tabBarItem = UITabBarItem(title: title, image: resizedImage, tag: 0)
+        let resizedSelectedImage = selectedImage != nil
+               ? UIImage.resizeImage(image: selectedImage!, targetSize: CGSize(width: 28, height: 28))?.withRenderingMode(.alwaysOriginal)
+               : resizedImage
+//        navigationController.tabBarItem = UITabBarItem(title: title, image: resizedImage, tag: 0)
+        navigationController.tabBarItem = UITabBarItem(title: title, image: resizedImage, selectedImage: resizedSelectedImage)
+        
         
         return navigationController
     }

@@ -37,7 +37,7 @@ public final class FolderDetailRouter {
 
 extension FolderDetailRouter: FolderDetailRouterProtocol {
     func presentLocationDetail(from view: FolderDetailViewProtocol, location: AppResources.TravelLocation) {
-        let alert = UIAlertController(title: location.name, message: location.description, preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: location.name, message: location.description, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         if let vc = view as? UIViewController {
             vc.present(alert, animated: true)

@@ -51,7 +51,10 @@ public final class CoreDataManager {
 
 extension CoreDataManager: CoreDataManagerProtocol {
     func createFolder(name: String) {
-        
+        let folder = FolderEntity(context: context)
+        folder.id = UUID()
+        folder.name = name
+        saveContext()
     }
     
     func addLocation(_ location: LocationEntity, to folder: FolderEntity) {

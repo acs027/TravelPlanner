@@ -1,10 +1,16 @@
 # TravelPlanner
 
-An AI-powered iOS travel planning application that helps users discover and explore destinations using Google's Gemini AI.  
+An AI-powered iOS travel planning application that helps users discover and explore destinations. It leverages Google's Gemini AI along with interactive maps, onboarding, authentication, and local persistence.
 
 ## Overview
 
 TravelPlanner is a modular iOS application built with Swift that leverages Firebase services and Google's Gemini AI to provide intelligent travel recommendations. Users can search for travel destinations using natural language prompts, and the app returns specific landmarks, attractions, and points of interest with detailed information and map integration.
+
+<p align="center">    
+    <img width="300" alt="Image" src="https://github.com/user-attachments/assets/b318c546-126d-4a04-ab60-5a1ab949f3ec" />
+    <img width="300" alt="Image" src="https://github.com/user-attachments/assets/ed901f64-a321-4889-b328-691df7731e3d" />
+    <img width="300" alt="Gif" src="https://github.com/user-attachments/assets/325a270c-8cb8-43d0-ae0e-9a3d7da93b92" />
+</p>
 
 ## Features
 
@@ -12,75 +18,47 @@ TravelPlanner is a modular iOS application built with Swift that leverages Fireb
 - **Interactive Map Integration**: MapKit integration with custom annotations for travel locations
 - **Firebase Authentication**: Secure user authentication and session management
 - **Modular Architecture**: Clean, maintainable codebase with VIPER pattern
-- **Offline Support**: Mock data support for development and testing
 - **Onboarding Flow**: User-friendly introduction to app features
+- **Splash Screen** : Animated splash screen
 - **Network Monitoring**: Real-time connectivity status tracking
+- **Reachability**: Live network status via `NWPathMonitor`
+- **Local persistence**: Store places and folders using Core Data
+
+## Tech Stack
+
+- **Language**: Swift  
+- **Frameworks**: UIKit, MapKit, Core Data, Network  
+- **Architecture**: VIPER, Modular with Swift Package Manager (SPM)  
+- **UI**: XIB-based UI + Programmatic UI
+- **AI**: Google Gemini API  
+- **Backend Services**: Firebase (Auth, App Check)  
 
 ## Architecture
 
-The app follows a modular architecture with separate Swift Package Manager modules:
+The app is modular, constructed using Swift Package Manager (SPM), and follows the VIPER architecture:
 
-### Core Modules
+### Modules
 
 - **App**: Main application target with AppDelegate and SceneDelegate
 - **AppRouter**: Central navigation and routing logic
-- **AIPlanner**: Core travel planning functionality with VIPER architecture
-- **TravelPlannerAuth**: Firebase authentication module
-- **TravelPlannerNetwork**: Network layer with Gemini AI integration
+- **AIPlanner**: Core travel planning functionality
+- **Folder**: Stores user-saved locations
+- **FolderDetail**: Displays the contents of a folder
+- **TravelPlannerAuth**: Includes login and sign-up screens. Utilizes Firebase Auth
+- **TravelPlannerNetwork**: Network layer with Gemini AI integration; includes `ReachabilityManager` to track network connection via `NWPathMonitor`
 - **AppResources**: Shared data models and entities
 - **TabBar**: Main tab bar controller
 - **UserProfile**: User profile management
 - **Splash**: App launch screen with animations
 - **Onboarding**: User onboarding flow
-- **MockData**: Local test data for development
 - **AppCheckProvider**: Firebase App Check security
-
-### Key Components
-
-#### AI Integration
-- **GeminiService**: Handles communication with Google's Gemini AI
-- **TravelLocationService**: Manages travel location data fetching
-- **Structured JSON Schema**: Ensures consistent AI responses
-
-#### Data Models
-```swift
-struct TravelLocation: Codable {
-    let id: String
-    let name: String
-    let description: String
-    let latitude: Double
-    let longitude: Double
-    let symbol: String // SF Symbol
-    let type: String   // Monument, Beach, Museum, etc.
-}
-```
-
-## Requirements
-
-- iOS 15.0+
-- Xcode 15.0+
-- Swift 6.1+
-- Firebase project with Gemini AI enabled
-
-## Dependencies
-
-### External Dependencies
-- **Firebase iOS SDK** (v12.0.0+)
-  - FirebaseCore
-  - FirebaseAuth
-  - FirebaseAI
-  - FirebaseAppCheck
-- **DotLottie** (v0.8.7+) - For splash screen animations
-
-### Internal Dependencies
-All modules are managed as local Swift packages with clear dependency relationships.
 
 ## Usage
 
 ### Basic Flow
 1. **Splash Screen**: App launches with animated splash
 2. **Onboarding**: First-time users see feature introduction
-3. **Authentication**: Firebase-based login/signup
+3. **Authentication**: Firebase-based login and sign-up
 4. **Main Interface**: Tab-based navigation with AI planner
 5. **Travel Search**: Natural language travel queries
 6. **Results**: Interactive map with location details

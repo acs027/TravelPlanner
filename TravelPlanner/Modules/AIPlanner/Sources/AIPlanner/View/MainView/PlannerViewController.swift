@@ -67,6 +67,15 @@ class PlannerViewController: UIViewController {
         generateButton.addTarget(self, action: #selector(sendTapped), for: .touchUpInside)
         locationOverlayView.delegate = self
         locationOverlayView.isHidden = true
+        
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithTransparentBackground()
+        appearance.backgroundEffect = UIBlurEffect(style: .systemUltraThinMaterial)
+        appearance.backgroundColor = UIColor.clear
+        
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+
     }
     
     @objc private func sendTapped() {

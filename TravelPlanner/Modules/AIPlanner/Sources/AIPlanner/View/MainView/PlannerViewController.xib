@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PlannerViewController" customModule="AIPlanner" customModuleProvider="">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PlannerViewController" customModule="AIPlanner">
             <connections>
                 <outlet property="generateButton" destination="zJf-cQ-o44" id="aXS-Yj-yBy"/>
                 <outlet property="locationOverlayView" destination="WsI-Fz-Dci" id="H7M-hU-SH5"/>
@@ -26,10 +26,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TeB-Nv-1CA">
-                    <rect key="frame" x="0.0" y="118" width="393" height="666"/>
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="784"/>
                     <standardMapConfiguration key="preferredConfiguration"/>
                 </mapView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WsI-Fz-Dci" customClass="LocationOverlayView" customModule="AIPlanner" customModuleProvider="">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WsI-Fz-Dci" customClass="LocationOverlayView" customModule="AIPlanner">
                     <rect key="frame" x="0.0" y="118" width="393" height="50"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
@@ -68,7 +68,7 @@
                 <constraint firstItem="WsI-Fz-Dci" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="duF-Ni-xDc"/>
                 <constraint firstItem="ZVZ-T3-ICG" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="40" id="pxl-8c-AEO"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="zJf-cQ-o44" secondAttribute="trailing" constant="40" id="tin-Wo-Kgi"/>
-                <constraint firstItem="TeB-Nv-1CA" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="wAX-Gw-Gmb"/>
+                <constraint firstItem="TeB-Nv-1CA" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="wAX-Gw-Gmb"/>
                 <constraint firstItem="TeB-Nv-1CA" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="xJa-CM-Ck7"/>
             </constraints>
             <point key="canvasLocation" x="137" y="20"/>

@@ -32,13 +32,13 @@ extension PlannerInteractor {
 }
 
 extension PlannerInteractor: PlannerInteractorProtocol {
-#if DEBUG
-    func fetchTravelLocations(prompt: String) {
-        let fetchedLocations = service.fetchLocalTravelLocations(prompt: prompt)
-        output?.locationsFetched(fetchedLocations)
-    }
+//#if DEBUG
+//    func fetchTravelLocations(prompt: String) {
+//        let fetchedLocations = service.fetchLocalTravelLocations(prompt: prompt)
+//        output?.locationsFetched(fetchedLocations)
+//    }
     
-#else
+//#else
 func fetchTravelLocations(prompt: String) {
     
     if !isPromptValid(prompt) {
@@ -59,7 +59,7 @@ func fetchTravelLocations(prompt: String) {
         }
     }
 }
-#endif
+//#endif
 }
 
 
